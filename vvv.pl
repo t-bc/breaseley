@@ -58,12 +58,6 @@ Options:
 vvv is a command-line tool to generate scripts to remove extraneous
 versioned files.
 
-
-
-=head1 SUPPORT
-
-Address bug reports and comments to: jcohen@genezzo.com
-
 =head1 AUTHORS
 
 Jeff Cohen
