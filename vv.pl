@@ -11,15 +11,15 @@ use POSIX qw(tmpnam);
 
 # BREEZLY_POD_BEGIN
 # WARNING: DO NOT modify the pod directly!
-# Generated from the breezly_defs by breezly.pl version 2.7
-# on Sat May  7 19:07:06 2016.
+# Generated from the breezly_defs by breezly.pl version 3.2
+# on Wed Oct  6 19:37:52 2021.
 =head1 NAME
 
 B<vv.pl> - make a backup version of a file
 
 =head1 VERSION
 
-version 11 of vv.pl released on Sat Jan 18 00:50:35 2014
+version 12 of vv.pl released on Wed Oct  6 19:37:52 2021
 
 =head1 SYNOPSIS
 
@@ -64,7 +64,7 @@ specified, the cp is executed.
 
 =head1 SUPPORT
 
-Address bug reports and comments to: jcohen@genezzo.com
+Address bug reports and comments at https://github.com/t-bc/genezzo/issues
 
 =head1 AUTHORS
 
@@ -72,7 +72,7 @@ Jeff Cohen
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2014 by Jeff Cohen.
+Copyright (c) 2014-2021 by Jeff Cohen.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
@@ -99,9 +99,9 @@ sub breezly_defs
          "maintainers" : [],
          "owner" : "Jeff Cohen",
          "support" : {
-            "long" : "Address bug reports and comments to: jcohen@genezzo.com"
+            "long" : "Address bug reports and comments at https://github.com/t-bc/genezzo/issues"
          },
-         "year" : 2014
+         "year" : "2014-2021"
       },
       "creation" : {
          "creationdate" : "Sat Jan 18 00:44:29 2014",
@@ -114,9 +114,10 @@ sub breezly_defs
       "short" : "make a backup version of a file",
       "synopsis" : "[options] filename...",
       "version" : {
-         "date" : "Sat Jan 18 00:50:35 2014",
-         "number" : "11",
-         "time" : 1390035035
+         "_generator" : "breezly.pl version 3.2",
+         "date" : "Wed Oct  6 19:37:52 2021",
+         "number" : "12",
+         "time" : 1633574272
       }
    },
    "args" : [
@@ -166,29 +167,38 @@ sub validate_more
 # BREEZLY_CMDLINE_BEGIN
 
 # WARNING: DO NOT modify parse_cmdline() directly!
-# Generated from the breezly_defs by breezly.pl version 2.7
-# on Sat May  7 19:07:06 2016.
+# Generated from the breezly_defs by breezly.pl version 3.2
+# on Wed Oct  6 19:37:52 2021.
 
 our $breezly_optdef_h;
 
-sub decode_defstr
+sub defstr_decode
 {
     my $defstr = shift;
-
-    return JSON::decode_json($defstr)
-        if (eval "require JSON");
 
     return JSON::PP::decode_json($defstr)
         if (eval "require JSON::PP");
 
+    return JSON::decode_json($defstr)
+        if (eval "require JSON");
+
+    my $brz_defs;
+
+    # use user-defined routine for more JSON parsing options
+    $brz_defs = defstr_decode_more($defstr);
+    return $brz_defs
+        if (defined($brz_defs));
+
     warn "Cannot find JSON or JSON::PP modules!\nPlease download and install from cpan.org";
 
-    my $brz_defs = {};
+    # build a default, empty structure
+    $brz_defs = {};
     $brz_defs->{_defs} = {};
     $brz_defs->{args}  = {};
 
     return $brz_defs;
-} # end decode_defstr
+
+} # end defstr_decode
 
 sub parse_cmdline
 {
@@ -200,6 +210,7 @@ sub parse_cmdline
     my %h = (
         'help' => \$help, 'man' => \$man
         );
+
 
     GetOptions(\%h,
                'help|?', 'man',
@@ -223,7 +234,7 @@ sub parse_cmdline
 
     my $defstr = breezly_defs();
 
-    my $brz_defs = decode_defstr($defstr);
+    my $brz_defs = defstr_decode($defstr);
     $breezly_optdef_h->{_defs}            = $brz_defs->{_defs};
     $breezly_optdef_h->{_defs}->{cmdline} = $cmdline;
     $breezly_optdef_h->{_defs}->{_args}   = $brz_defs->{args};
@@ -281,7 +292,7 @@ if (1)
 
 	my $new_name = $filename . '.' . $last_num;
 
-	my $cpstr = "cp $filename $new_name\n";
+	my $cpstr = "cp -p $filename $new_name\n";
 
 	if (exists($breezly_optdef_h->{copy}) &&
             defined($breezly_optdef_h->{copy}))

@@ -10,16 +10,16 @@ use POSIX;
 
 # BREEZLY_POD_BEGIN
 
-# WARNING: DO NOT modify the pod directly!  
-# Generated from the breezly_defs by breezly.pl version 3.2 
-# on Fri Nov 29 23:34:12 2019.
+# WARNING: DO NOT modify the pod directly!
+# Generated from the breezly_defs by breezly.pl version 3.2
+# on Wed Oct  6 19:44:55 2021.
 =head1 NAME
 
 B<breezly.pl> - making things a breeze
 
 =head1 VERSION
 
-version 3.2 of breezly.pl released on Fri Oct 25 23:42:04 2019
+version 3.3 of breezly.pl released on Wed Oct  6 19:44:55 2021
 
 =head1 SYNOPSIS
 
@@ -27,39 +27,39 @@ B<breezly.pl> [options] filename...
 
 Options:
 
-    -help                       brief help message                                  
-    -man                        full documentation                                  
-    -define                     define breezly defs                                 
-    -getdef                     extract a breezly defs entry                        
-    -checkdef                   check if a breezly defs entry exists                
-    -jsondefine                 define breezly defs as JSON                         
-    -getjsondef                 extract a breezly defs entry as an encoded string   
-    -append                     append a value to a breezly defs entry              
-    -jsonappend                 append a JSON value to a breezly defs entry         
-    -delete                     delete a breezly defs entry                         
-    -increment                  increment a breezly defs entry                      
-    -argdef                     alias for defining command-line arguments           
-    -initdef                    file of multiple breezly def commands               
-    -dump                       dump the command line optdef hash                   
-    -show                       show the breezly defs                               
-    -maketemplate               make a generic template for a breezly script        
-    -triplequote                unconvert breezly def to triple-quoted long strings 
-    -preferences                dump the breezly defs for a preference files        
-    -version                    print the version and copyright information         
-    -wikimarkup                 print the documentation in wikicreole markup form   
-    -replace                    replace the target file                             
-    -compgen                    generate compgen-style completion                   
-    -compoptionname             breezly compgen option name                         
-    -compoptionvalue            breezly compgen option value                        
-    -compoptionposition         breezly compgen option position                     
-    -compoptionwords            breezly compgen option words                        
-    -compoptionfunction         generate a bash completion function                 
+    -help                       brief help message
+    -man                        full documentation
+    -define                     define breezly defs
+    -getdef                     extract a breezly defs entry
+    -checkdef                   check if a breezly defs entry exists
+    -jsondefine                 define breezly defs as JSON
+    -getjsondef                 extract a breezly defs entry as an encoded string
+    -append                     append a value to a breezly defs entry
+    -jsonappend                 append a JSON value to a breezly defs entry
+    -delete                     delete a breezly defs entry
+    -increment                  increment a breezly defs entry
+    -argdef                     alias for defining command-line arguments
+    -initdef                    file of multiple breezly def commands
+    -dump                       dump the command line optdef hash
+    -show                       show the breezly defs
+    -maketemplate               make a generic template for a breezly script
+    -triplequote                unconvert breezly def to triple-quoted long strings
+    -preferences                dump the breezly defs for a preference files
+    -version                    print the version and copyright information
+    -wikimarkup                 print the documentation in wikicreole markup form
+    -replace                    replace the target file
+    -compgen                    generate compgen-style completion
+    -compoptionname             breezly compgen option name
+    -compoptionvalue            breezly compgen option value
+    -compoptionposition         breezly compgen option position
+    -compoptionwords            breezly compgen option words
+    -compoptionfunction         generate a bash completion function
 
 
 =head1 OPTIONS
 
 
-=over 8 
+=over 8
 
 =item B<help>
 
@@ -71,230 +71,230 @@ Options:
 
 =item B<define>
 
-    Takes a <key>=<value> pair as an argument, 
-    and inserts or updates an entry under "_defs" in 
+    Takes a <key>=<value> pair as an argument,
+    and inserts or updates an entry under "_defs" in
     the breezly defs.  Multiple definitions are possible, e.g:
-    
+
       -def foo=bar -def baz=ztesch
-    
-    In addition, "dot" and array notation, e.g. 
-    a.b.c[0]="foo", is supported.  Note that "-define" 
+
+    In addition, "dot" and array notation, e.g.
+    a.b.c[0]="foo", is supported.  Note that "-define"
     only supports simple scalar string or numeric
-    value assignment.  Use "-jdefine" to assign a 
+    value assignment.  Use "-jdefine" to assign a
     NULL or more complex strucure.
 
 =item B<getdef>
 
-    Takes a <key> as an argument, and dumps an entry under 
-    "_defs" in the breezly defs as JSON. Multiple definitions 
+    Takes a <key> as an argument, and dumps an entry under
+    "_defs" in the breezly defs as JSON. Multiple definitions
     are possible, e.g:
-    
+
       -getdef foo -getdef baz
-    
+
 
 =item B<checkdef>
 
-    Takes a <key> as an argument, and returns the 
-    type of an entry under "_defs" in the breezly defs  
+    Takes a <key> as an argument, and returns the
+    type of an entry under "_defs" in the breezly defs
     if it exists. Multiple definitions are possible, e.g:
-    
+
       -checkdef foo -checkdef baz
-    
-    Returns the type of the entry (HASH, ARRAY, SCALAR, 
+
+    Returns the type of the entry (HASH, ARRAY, SCALAR,
     or UNDEF) if it exists, else it returns an empty string.
-    
+
 
 =item B<jsondefine>
 
     Takes a <key>=<value> pair as an argument, where
-    the <value> is a "percent-encoded" JSON object, and  
-    inserts or updates an entry under "_defs" in the 
+    the <value> is a "percent-encoded" JSON object, and
+    inserts or updates an entry under "_defs" in the
     breezly defs.  Multiple definitions are possible, e.g:
-    
+
       -jdef foo=bar -jdef baz=ztesch
-    
+
     Note that literal JSON object that don't contain
     embedded percent signs are valid arguments, so the
     following options are an acceptable way to construct
     an empty array "foo", and an array "baz" with two
     NULL values, and a NULL entry for a.b:
-    
+
       -jdef foo="[]" -jdef baz="[null,null]" a.b="null"
-    
-    
+
+
 
 =item B<getjsondef>
 
-    Takes a <key> as an argument, and dumps an entry under 
-    "_defs" in the breezly defs as "percent-encoded" 
+    Takes a <key> as an argument, and dumps an entry under
+    "_defs" in the breezly defs as "percent-encoded"
     JSON string.  Multiple definitions are possible, e.g:
-    
+
       -getjdef foo -getjdef baz
-    
-    
-    
+
+
+
 
 =item B<append>
 
     Takes a <key>=<value> pair as an argument, and appends
-    it to an existing entry under "_defs" in the breezly defs.  
-    If the entry specified by the key is a string, then the 
-    new value is concatenated to the existing string.  If the 
-    specified entry is an array, then the new entry is appended 
+    it to an existing entry under "_defs" in the breezly defs.
+    If the entry specified by the key is a string, then the
+    new value is concatenated to the existing string.  If the
+    specified entry is an array, then the new entry is appended
     to the array.
     Multiple definitions are possible, e.g:
-    
+
       -app foo=bar -app baz=ztesch
-    
+
     Note be careful about appending to an array, versus appending
     to an array entry.  For example, if you create an array:
-    
+
       breezly.pl -define a.b[0]=foo foo.pl
       cp foo.pl.brzly foo.pl
       breezly.pl -getdef a foo.pl
-    
+
     returns:
-    
+
     {
        "b" : [
           "foo"
        ]
     }
-    
+
       -append a.b[0]=bar
-    
+
     results in:
-    
+
     {
        "b" : [
           "foobar"
        ]
     }
-    
+
     In order to append to the end of the array, do:
-    
+
       -append a.b=baz
-    
+
     which results in:
-    
+
     {
        "b" : [
           "foobar",
           "baz"
        ]
     }
-    
-    
+
+
 
 =item B<jsonappend>
 
     Takes a <key>=<value> pair as an argument, where
-    the value is a "percent=encoded" JSON string, and 
-    appends it to a breezly defs entry.  
-    
+    the value is a "percent=encoded" JSON string, and
+    appends it to a breezly defs entry.
+
     Multiple definitions are possible, e.g:
-    
+
       -jsonapp foo="[1,2,3]"  -jsonapp baz='["alpha","bravo"]'
-    
-    Note that appending an array to an existing array 
+
+    Note that appending an array to an existing array
     results in concatenation.
-    
-    
+
+
 
 =item B<delete>
 
     Takes a <key> as an argument, and deletes
-    an existing entry under "_defs" in the breezly defs.  Note 
-    that this action is quite distinct from setting the entry 
-    to NULL. If the entry specified by the key is a hash key, 
-    then the existing entry is removed completely.  If the 
-    specified entry is an array entry, then the entry is 
-    removed ("spliced") from the array.  
+    an existing entry under "_defs" in the breezly defs.  Note
+    that this action is quite distinct from setting the entry
+    to NULL. If the entry specified by the key is a hash key,
+    then the existing entry is removed completely.  If the
+    specified entry is an array entry, then the entry is
+    removed ("spliced") from the array.
     Multiple definitions are possible, e.g:
-    
+
       -del foo -del baz
-    
+
 
 =item B<increment>
 
     Takes a <key> as an argument, and increments
-    an existing entry under "_defs" in the breezly defs.  
-    Note that the entry may be a string with an embedded 
-    number, e.g. you can increment the string "foo4a" to 
-    "foo5a". If the string contains multiple numbers only 
-    the final numeric value is incremented.   "increment" 
+    an existing entry under "_defs" in the breezly defs.
+    Note that the entry may be a string with an embedded
+    number, e.g. you can increment the string "foo4a" to
+    "foo5a". If the string contains multiple numbers only
+    the final numeric value is incremented.   "increment"
     does not treat numbers as decimals, so incrementing a
-    value like "1.9" results in "1.10", not "2.0".  
-    
-    The key "version" may be used as a "shortcut" to 
+    value like "1.9" results in "1.10", not "2.0".
+
+    The key "version" may be used as a "shortcut" to
     increment "version"."number", i.e.
-    
+
         -inc version
-    
+
     will increment version.number and update the version
     date and time.  Similarly, the option
-    
+
         -inc copyright
-    
+
     will update the copyright year.
 
 =item B<argdef>
 
     Normally, the various "defs" commands
     (-define, -getdef, -jsondefine, -append, etc) only
-    work on the "_defs" section of the "breezly_defs", 
+    work on the "_defs" section of the "breezly_defs",
     which contains the copyright, owner, etc.  Set "-argdef"
     to provide an alias for modifying the "args" array,
-    e.g.: 
-    
+    e.g.:
+
         -argdef=args -getdef args[0]
-    
-    will dump the first args entry, which is usually the 
+
+    will dump the first args entry, which is usually the
     "-help" option.  Note that although "args" is
-    an array, breezly supports a special syntax to 
+    an array, breezly supports a special syntax to
     specify args by name, e.g:
-    
+
         -argdef=args -getdef args.help
-    
+
     finds the arg array entry with the name "help".
     Similarly, you can add a new argument to a
     breezly program by name.  The following example
     will update an existing args entry, or create a
     new one:
-    
+
         -argdef=args -define args.foobar.type=file
-    
+
     The result is an argument named "foobar", of
     type "file".
-    
+
 
 =item B<initdef>
 
     Supply multiple breezly definitions in
     a single file, using "define", "jsondefine", "append",
     "jsonappend", "delete", and "increment".  Example:
-    
+
       # this is a comment
       define version = 52
       increment version
       jsondefine copyright.contributors = "[]"
       append copyright.maintainers = "Cousin Bob"
-    
-    
+
+
 
 =item B<dump>
 
-    Parse the command line, and dump the hash of the parsed 
-    options (the optdef hash) to stdout.  "-dump" shows 
-    the breezly.pl commandline, while "-show" dumps the 
+    Parse the command line, and dump the hash of the parsed
+    options (the optdef hash) to stdout.  "-dump" shows
+    the breezly.pl commandline, while "-show" dumps the
     breezly_defs of the input file.
 
 =item B<show>
 
-    Extract the "breezly_defs" definitions from the input file, 
-    and apply basic fixup, preferences, and command line 
-    options, then dump the result to stdout.  "-dump" shows the 
-    breezly.pl commandline, while "-show" dumps the 
+    Extract the "breezly_defs" definitions from the input file,
+    and apply basic fixup, preferences, and command line
+    options, then dump the result to stdout.  "-dump" shows the
+    breezly.pl commandline, while "-show" dumps the
     breezly_defs of the input file.
 
 =item B<maketemplate>
@@ -303,19 +303,19 @@ Options:
 
 =item B<triplequote>
 
-    Extracts the "breezly_defs" from the input file, and 
-    rewrites the output so each "long" definition is in 
-    "triple-quoted" form.  Note that while breezly can read these definitions, 
-    the resulting JSON object is B<not> in a valid format.  Processing the 
+    Extracts the "breezly_defs" from the input file, and
+    rewrites the output so each "long" definition is in
+    "triple-quoted" form.  Note that while breezly can read these definitions,
+    the resulting JSON object is B<not> in a valid format.  Processing the
     file B<without> the "triplequote" option will reverse the process.
 
 =item B<preferences>
 
-    Extracts the "breezly_defs" from the input file, filters 
-    out dynamic information (like "creationdate"), and writes 
-    a json def to stdout, suitable for the breezlyprefs.json 
-    file.  If this file exists (in your home directory), it will 
-    modify the default definitions (for owner, author, 
+    Extracts the "breezly_defs" from the input file, filters
+    out dynamic information (like "creationdate"), and writes
+    a json def to stdout, suitable for the breezlyprefs.json
+    file.  If this file exists (in your home directory), it will
+    modify the default definitions (for owner, author,
     license, etc) when a new template is generated.
 
 =item B<version>
@@ -324,18 +324,18 @@ Options:
 
 =item B<wikimarkup>
 
-    Extracts "breezly_defs" definitions from the 
-    input file, and print the documentation in wikicreole 
+    Extracts "breezly_defs" definitions from the
+    input file, and print the documentation in wikicreole
     markup form.  This markup output may be converted to html.
 
 =item B<replace>
 
-    Normally, the target file is not modified, and 
-    the results are written to a separate ".brzly" file. 
+    Normally, the target file is not modified, and
+    the results are written to a separate ".brzly" file.
     If "-replace" is specified, a numbered backup copy
     of the target is made, and the original target file
     is replaced.
-    
+
 
 =item B<compgen>
 
@@ -344,36 +344,36 @@ Options:
     "--compoptionname" and "--compoptionvalue" options.
     Normally, this option is invoked in the bash completion
     function generated by "--compoptionfunction".
-    
+
 
 =item B<compoptionname>
 
     Given an argument starting with a dash ("-"),
     it returns the list of matching options for the input file
-    (see "--compgen"). If no leading dash is supplied, the 
+    (see "--compgen"). If no leading dash is supplied, the
     argument is treatd as a file name.
-    
+
 
 =item B<compoptionvalue>
 
     Processes the argument according to
     the breezly option type of the "--compoptionname" (if one
-    is supplied).  For example, if the option type is "file", 
-    then the "--compoptionvalue" uses compgen-style 
+    is supplied).  For example, if the option type is "file",
+    then the "--compoptionvalue" uses compgen-style
     file name expansion.
-    
+
 
 =item B<compoptionposition>
 
-    Takes the bash COMP_CWORD.  If supplied, 
+    Takes the bash COMP_CWORD.  If supplied,
     use to check for positional arguments.
-    
+
 
 =item B<compoptionwords>
 
     Takes the bash COMP_WORDS array as rfc 3986
     encoded string.
-    
+
 
 =item B<compoptionfunction>
 
@@ -381,9 +381,9 @@ Options:
     uses the breezly "compgen" options for interactive command
     completion.  This completion command may be stored in a file
     and "sourced", or installed in /etc/bash_completion.d
-    
 
-=back 
+
+=back
 
 
 
@@ -395,12 +395,12 @@ Getopt::Long. breezly.pl can generate a simple template which users
 can extend to suit their needs.  The template relies on a JSON
 definition called the "breezly defs".  This structure contains an
 "args" array that defines the names, types, and basic documentation
-for each command line option.  
+for each command line option.
 
-breezly generates [[http://perldoc.perl.org/perlpod.html|POD]] 
-documentation, but uses it uses wiki markup templates in 
+breezly generates [[http://perldoc.perl.org/perlpod.html|POD]]
+documentation, but uses it uses wiki markup templates in
 [[http://wikicreole.org/wiki/Home|WikiCreole]] format, which
-it converts to POD.  
+it converts to POD.
 
 =head2 breezly_defs
 
@@ -409,7 +409,7 @@ breezly_defs() function at the beginning of each breezly-generated
 script.  This function returns a string for a JSON object, which has
 two parts: a "_defs" section with basic "metadata" about the program
 creation, ownership, copyright, etc, and an "args" section that
-defines the command line options.  
+defines the command line options.
 
 =head3 defs
 
@@ -426,48 +426,48 @@ licensing and support information.
 The "args" section is an array of command line option definitions.  At
 minimum, each option must have a "name" field and a type.
 
-The "primitive" types are int, float, string, and "untyped".  
+The "primitive" types are int, float, string, and "untyped".
 An "untyped" option does not take a value -- it can only
-be said to exist or not exist.  
+be said to exist or not exist.
 
 By default, all options have a "required" status of zero,
 which means that if the option is specified, it does not
 have to take a value.  If "required" = 1, then if the
 option is specified, it B<must> be followed by a value.
 If "required" = 2, then "option" is mandatory, and it
-must always be specified with a value.  
+must always be specified with a value.
 
 For documentation purposes, each option has a one-line
 "short" description, which is a simple string.  In addition,
 each option has a "long" description in the form of a
 "percent-encoded" string in WikiCreole format.
 
-breezly also has an extensible set of built-in types under 
+breezly also has an extensible set of built-in types under
 prog.breezly.cmdline_option_types.all_types.  These type
 definitions can have a boolean "test" spec plus an
 error message for validation failures, and a "long"
 description for documentation.  These types are:
 
 
-=over 8 
+=over 8
 
 =item file
 
-    When an argument is of type file, type validation checks 
-    that the file exists.  Use outfile to specify the name 
+    When an argument is of type file, type validation checks
+    that the file exists.  Use outfile to specify the name
     of an output file (that does not exist yet).
 
 =item outfile
 
-    Use type file for input files that must exist, 
-    and outfile to specify output file names, where 
+    Use type file for input files that must exist,
+    and outfile to specify output file names, where
     the file does not exist yet
 
 =item json
 
-    A percent=encoded JSON object. 
+    A percent=encoded JSON object.
 
-=back 
+=back
 
 
 
@@ -476,7 +476,7 @@ description for documentation.  These types are:
 
 =head1 SUPPORT
 
-Address bug reports and comments to: jcohen@genezzo.com
+Address bug reports and comments at https://github.com/t-bc/genezzo/issues
 
 =head1 AUTHORS
 
@@ -484,7 +484,7 @@ Jeff Cohen
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2014-2019 by Jeff Cohen.
+Copyright (c) 2014-2021 by Jeff Cohen.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
@@ -496,7 +496,7 @@ the same terms as the Perl 5 programming language system itself.
 # The json breezly_defs control command-line parsing and pod
 # documentation.  Update these definitions and run breezly.pl to
 # rebuild your program.
-# 
+#
 sub breezly_defs
 {
     my $bigstr = << 'EOF_bigstr';
@@ -511,9 +511,9 @@ sub breezly_defs
          "maintainers" : [],
          "owner" : "Jeff Cohen",
          "support" : {
-            "long" : "Address bug reports and comments to: jcohen@genezzo.com"
+            "long" : "Address bug reports and comments at https://github.com/t-bc/genezzo/issues"
          },
-         "year" : "2014-2019"
+         "year" : "2014-2021"
       },
       "creation" : {
          "creationdate" : "Sat Jan 18 00:25:02 2014",
@@ -563,9 +563,9 @@ sub breezly_defs
       "synopsis" : "[options] filename...",
       "version" : {
          "_generator" : "breezly.pl version 3.2",
-         "date" : "Fri Nov 29 23:33:20 2019",
-         "number" : "3.2",
-         "time" : 1575099200
+         "date" : "Wed Oct  6 19:44:55 2021",
+         "number" : "3.3",
+         "time" : 1633574695
       }
    },
    "args" : [
@@ -781,7 +781,7 @@ EOF_bigstr
 #
 # stub routine for user-supplied command-line validation
 #
-# 
+#
 sub validate_more
 {
     my $bigh = shift;
@@ -807,9 +807,9 @@ sub defstr_decode_more
 
 # BREEZLY_CMDLINE_BEGIN
 
-# WARNING: DO NOT modify parse_cmdline() directly!  
-# Generated from the breezly_defs by breezly.pl version 3.2 
-# on Fri Nov 29 23:34:12 2019.
+# WARNING: DO NOT modify parse_cmdline() directly!
+# Generated from the breezly_defs by breezly.pl version 3.2
+# on Wed Oct  6 19:44:55 2021.
 
 our $breezly_optdef_h;
 
@@ -852,9 +852,9 @@ sub parse_cmdline
         'help' => \$help, 'man' => \$man
         );
 
-    
-    GetOptions(\%h, 
-               'help|?', 'man', 
+
+    GetOptions(\%h,
+               'help|?', 'man',
                'define:s%',
                'getdef:s@',
                'checkdef|exists:s@',
@@ -880,7 +880,7 @@ sub parse_cmdline
                'compoptionposition:i',
                'compoptionwords:s',
                'compoptionfunction'
-               
+
         ) or pod2usage(2);
 
     my $glob_id = "breezly.pl";
@@ -897,8 +897,8 @@ sub parse_cmdline
             pod2usage(-msg => $glob_id, -exitstatus => 1, -verbose => 0);
         }
     }
-    
-        
+
+
 
     # copy to the global
     while (my ($kk, $vv) = each(%h))
@@ -907,19 +907,19 @@ sub parse_cmdline
     }
 
     my $defstr = breezly_defs();
-    
-    # NOTE: unconverted breezly_defs may contain triple-quotes.  
+
+    # NOTE: unconverted breezly_defs may contain triple-quotes.
     if ($defstr =~ m/\"\"\"/)
     {
         # triple quote fixup
         my @zzz = split(/(\"\"\")/, $defstr);
-        
+
         my $fixstr = "";
-        
+
         if (scalar(@zzz))
         {
             my $inquote = 0;
-            
+
             # for each triple quoted region, convert to a single line using quurl2
             for my $chunk (@zzz)
             {
@@ -935,7 +935,7 @@ sub parse_cmdline
                         # quurl2 (inlined)
                         my $pat1 = '[^a-zA-Z0-9' .
                             quotemeta(' ~!@#$^&*()-_=+{}[]:;<>,.?/') . ']';
-                        
+
                         $chunk =~ s/($pat1)/uc(sprintf("%%%02lx",  ord $1))/eg;
                     }
                 }
@@ -947,20 +947,20 @@ sub parse_cmdline
                         $inquote = 1;
                     }
                 }
-    
+
                 $fixstr .= $chunk;
-    
+
             } # end for my $chunk
-    
+
             # should have terminated triple quote before end of loop
             die("$glob_id: unterminated triple quote in breezly definitions")
                 if ($inquote);
-            
+
             $defstr = $fixstr;
-        } 
+        }
     }
-    
-    
+
+
     my $brz_defs = defstr_decode($defstr);
     $breezly_optdef_h->{_defs}            = $brz_defs->{_defs};
     $breezly_optdef_h->{_defs}->{cmdline} = $cmdline;
@@ -974,17 +974,11 @@ sub parse_cmdline
 BEGIN {
     exit(0)
         unless (parse_cmdline());
-    
+
 }
 # BREEZLY_CMDLINE_END
 
 # BREEZLY_UTILITYFUNCS_BEGIN
-
-# The following breezly utility functions were copied from 
-# breezly.pl version 2.4 
-# on Fri Mar  4 23:25:56 2016.
-#
-# Copyright (c) 2016 by Jeff Cohen.
 
 
 sub breezly_json_setup
@@ -994,16 +988,16 @@ sub breezly_json_setup
     return
         if (exists($bop->{_defs}->{_JSON}->{json}));
 
-    if (eval "require JSON") 
+    if (eval "require JSON")
     {
         $bop->{_defs}->{_JSON}->{module} = "JSON";
-        $bop->{_defs}->{_JSON}->{json}   = 
+        $bop->{_defs}->{_JSON}->{json}   =
            JSON->new->pretty(1)->indent(1)->canonical(1);
     }
     elsif (eval "require JSON::PP")
     {
         $bop->{_defs}->{_JSON}->{module} = "JSON::PP";
-        $bop->{_defs}->{_JSON}->{json}   = 
+        $bop->{_defs}->{_JSON}->{json}   =
           JSON::PP->new->pretty(1)->indent(1)->canonical(1);
     }
     else
@@ -1052,7 +1046,7 @@ sub breezly_deep_copy
 {
     my ($bop, $perlscalar) = @_;
 
-    if (eval "require Storable")     
+    if (eval "require Storable")
     {
         use Storable;
 
@@ -1067,10 +1061,10 @@ sub breezly_deep_copy
 
     }
 
-    return breezly_json_decode($bop, 
+    return breezly_json_decode($bop,
              breezly_json_encode_fast($bop, $perlscalar));
 
-    return breezly_json_decode($bop, 
+    return breezly_json_decode($bop,
              breezly_json_encode_fast($bop, $perlscalar));
 
 }
@@ -1111,13 +1105,13 @@ sub format_with_lead_spaces
             if ($vvv[$ii] =~ m/\n/);
     }
     my $val2 = join("", @vvv);
-    
+
     # if the pattern has leading spaces, use the spaced-out version of
     # the value
     $instr =~ s/^(\s+)$sub1/$1$val2/gm;
-    
+
     # replace other references to the pattern with the original
-    # (unmodified) value.  
+    # (unmodified) value.
     # Note: it would be nice to figure out how to adjust the offset
     # for $val for this case, but it's non-trivial
     $instr =~ s/$sub1/$val/gm;
@@ -1147,11 +1141,11 @@ sub doformat
         }
 
         my $sub1 = '{' . quotemeta($kk) . '}';
-        
+
         for my $ii (0..(scalar(@lin)-1))
         {
             next unless ($lin[$ii] =~ m/\w/);
-            
+
             # check for case of value with newlines, and leading spaces in format
             if ($vv !~ m/\n/)
             {
@@ -1195,7 +1189,7 @@ sub quurl2
     return $str;
 }
 
-# unconvert quoted strings 
+# unconvert quoted strings
 sub unquurl
 {
     my $str = shift;
@@ -1237,7 +1231,7 @@ sub breezly_tbl_split
         push @{$cola}, @cols;
         push @{$rowa}, $cola;
     }
-    
+
     return $rowa;
 } # end breezly_tbl_split
 
@@ -1256,7 +1250,7 @@ sub breezly_tbl_pad
     for my $rw (@{$rowa})
     {
         # make sure rowstat is large enough
-        
+
         my $maxcol = scalar(@{$rw});
         if (scalar(@rowstat) < $maxcol)
         {
@@ -1276,7 +1270,7 @@ sub breezly_tbl_pad
     } # end for my $rw
 
     my $rowb = [];
-    
+
     for my $rw (@{$rowa})
     {
         my $cola = [];
@@ -1296,7 +1290,7 @@ sub breezly_tbl_pad
                 if ($rowstat[$ii]-$collen);
 
             push @{$cola}, $rw->[$ii] . $extrasp;
-            
+
             $maxi = $ii;
         }
 
@@ -1309,11 +1303,11 @@ sub breezly_tbl_pad
         }
 
         push @{$rowb}, $cola;
-        
+
     } # end for my $rw
-    
+
     return $rowb;
-        
+
 } # end breezly_tbl_pad
 
 # breezly_tbl_join("padded" array, alignment)
@@ -1324,7 +1318,7 @@ sub breezly_tbl_pad
 #
 # align=0 : minimum column spacing is zero spaces
 # align=1 : minimum column spacing is one space
-# 
+#
 sub breezly_tbl_join
 {
     my ($rowa, $algn) = @_;
@@ -1412,7 +1406,7 @@ sub basic_wikicreole2pod
     my @lin2;
     my $bNoFormat = 0;
     my $bList     = 0;
-        
+
     for my $ii (0..(scalar(@lines)-1))
     {
         my $lin = $lines[$ii];
@@ -1423,7 +1417,7 @@ sub basic_wikicreole2pod
             {
                 $bNoFormat = 0;
             }
-            $lin = " " . $lin;            
+            $lin = " " . $lin;
         }
         else
         {
@@ -1471,7 +1465,7 @@ sub basic_wikicreole2pod
     # bold
     $bigstr =~ s/\*\*([^\*]*)\*\*/B\<$1\>/gm;
 
-    # convert definition list to pod item list 
+    # convert definition list to pod item list
     my @fff = split(/(^(?:\;|\:).*$)/m, $bigstr);
 
     my $indeflist = 0;
@@ -1479,7 +1473,7 @@ sub basic_wikicreole2pod
     if (scalar(@fff))
     {
         my $newstr = "";
-        
+
         for my $lin (@fff)
         {
             if ($lin =~ m/^(\;|\:)/)
@@ -1538,26 +1532,26 @@ sub inc_lastnum
 
     die "entry \"$defstr\": $idef not a number"
         unless ($idef =~ m/\d+/);
-    
+
     # last digit[s] (with optional suffix)
     my @lastnum = ($idef =~ m/(\d+(?:\D+)?$)/);
-    
+
     die "entry \"$defstr\": $idef bad number"
         unless (1 == scalar(@lastnum));
-    
+
     my $num = shift @lastnum;
-    
+
     # strip the last number suffix
     $idef =~ s/$num$//;
-    
+
     my $suffix = "";
-    
+
     # check for non-numeric final suffix
     if ($num =~ m/\D+$/)
     {
         # get non-numeric final suffix
         $suffix = $num;
-        
+
         # isolate numeric portion
         $suffix =~ s/\d+//g;
         $num    =~ s/\D+$//g;
@@ -1575,7 +1569,7 @@ sub breezly_from_encoded_json
 {
     my ($bop, $vv) = @_;
 
-    # check for NULL, and treat as undef 
+    # check for NULL, and treat as undef
     # (don't bother parsing, it won't work)
     # ((allow literal "undef" as alias for null, even though
     #   it's not valid json))
@@ -1626,7 +1620,7 @@ sub breezly_showversion
         exists($bigh->{_defs}->{copyright}->{license}->{long}))
     {
         $copynlic .= "\n" if (length($copynlic));
-        $copynlic .= 
+        $copynlic .=
             unquurl($bigh->{_defs}->{copyright}->{license}->{long}) .
             "\n";
     }
@@ -1660,16 +1654,16 @@ sub named_array_conversion
     $ent2 =~ s/^$na_keyrex//;
 
     my @zzz = split(/\./, $ent2, 3);
-        
+
     die "illegal argdef reference $entry"
         unless (scalar(@zzz) >= 2);
-        
+
     shift @zzz; # pop the named array key prefix (which should be empty)
-        
+
     # if treat as hash by name, get the name
-    my $argname = shift @zzz; 
+    my $argname = shift @zzz;
     my $argidx;
-        
+
     # iterate over array, looking for the index of the hash with the
     # specified name
     for my $ii (0..(scalar(@{$na_h})-1))
@@ -1681,34 +1675,34 @@ sub named_array_conversion
             last;
         }
     }
-        
+
     if (defined($argidx)) # entry already exists
     {
         # convert the entry to the array ref
         $entry = $na_keyprefix . '[' . $argidx . ']';
-        
+
         # append final bit if exists
         $entry .= "." . $zzz[0] if (scalar(@zzz));
-        
+
     }
     else # add new named entry
     {
         # entry must already exist if deleting or appending
         die "no such named argument \"$argname\" for $kkey"
             if ($delapp);
-        
+
         my $nentry = {name=>$argname};
         push @{$na_h}, $nentry;
-        
+
         # new entry is last one (zero based)
         $argidx = scalar(@{$na_h}) - 1;
-        
+
         # convert the entry to the array ref
         $entry = $na_keyprefix . '[' . $argidx . ']';
-        
+
         # append final bit if exists
         $entry .= "." . $zzz[0] if (scalar(@zzz));
-        
+
     }
 
     return $entry;
@@ -1718,7 +1712,7 @@ sub named_array_conversion
 #
 # version and copyright are examples of "shortcuts", ie "version" is a
 # hash, so when you perform a scalar assignment, it sets the
-# "version.number" (and updates the date/time as well).  
+# "version.number" (and updates the date/time as well).
 #
 # argdef is a bit a weirder, and it conflates several concepts that
 # should be separated.  First, while the normal cmdline processing
@@ -1732,7 +1726,7 @@ sub cmdline_defs_extension2
 {
     my ($bop,
         $argdef, $brzvz, $filnam, $bigh, $defh, $blong, $delapp,
-        $bdel, $bapp, $binc, $kkey, $vval, $do_def, $defstr, 
+        $bdel, $bapp, $binc, $kkey, $vval, $do_def, $defstr,
         $cdxfunc
         ) = @_;
 
@@ -1749,7 +1743,7 @@ sub cmdline_defs_extension2
 
                 # build defs with values for date, time, _generator
                 # fields, then call do_cmdline_defs()
-                my $defh1 = { 
+                my $defh1 = {
                     "version.date" => $dt,
                     "version.time" => $tm
                 };
@@ -1759,9 +1753,9 @@ sub cmdline_defs_extension2
                     if (defined($brzvz) &&
                         length($brzvz));
 
-                do_cmdline_defs2($bop, 
-                                undef, $brzvz, $filnam, $bigh, $defh1, 
-                                $blong, 
+                do_cmdline_defs2($bop,
+                                undef, $brzvz, $filnam, $bigh, $defh1,
+                                $blong,
                                 0, # not del/app/inc
                                 $cdxfunc);
 
@@ -1789,7 +1783,7 @@ sub cmdline_defs_extension2
     if (defined($argdef))
     {
         my $adef = $argdef;
-        
+
         if ($kkey =~ m/^$adef(((\.|\[).*)?)$/)
         {
             $do_def = $bigh; # not bigh->{args},
@@ -1800,28 +1794,28 @@ sub cmdline_defs_extension2
                 do_def => $do_def,
                 defstr => $defstr
             };
-            
+
             my $entry = $kkey;
-         
+
             # substitute "args" for the argdef alias
             $entry =~ s/^$adef/args/;
-            
-            # check if argdef "by name" reference, ie 
+
+            # check if argdef "by name" reference, ie
             #   -getdef args.argname
             # vs args[argnum]
             if ($entry =~ m/^args\./)
             {
                 my @zzz = split(/\./, $entry, 3);
-                
+
                 die "illegal argdef reference $entry"
                     unless (scalar(@zzz) >= 2);
-                
+
                 shift @zzz; # pop "args"
-                
+
                 # if treat "args" as hash by name, get the name
-                my $argname = shift @zzz; 
+                my $argname = shift @zzz;
                 my $argidx;
-                
+
                 for my $ii (0..(scalar(@{$bigh->{args}})-1))
                 {
                     if (exists($bigh->{args}->[$ii]->{name}) &&
@@ -1831,33 +1825,33 @@ sub cmdline_defs_extension2
                         last;
                     }
                 }
-                
+
                 if (defined($argidx)) # entry already exists
                 {
                     # convert the entry to the array ref
                     $entry = 'args[' . $argidx . ']';
-                    
+
                     # append final bit if exists
                     $entry .= "." . $zzz[0] if (scalar(@zzz));
-                    
+
                 }
                 else # add new named entry
                 {
                     die "no such named argument \"$argname\" for $kkey"
                         if ($delapp);
-                    
+
                     my $nentry = {name=>$argname};
                     push @{$bigh->{args}}, $nentry;
-                    
+
                     # new entry is last one (zero based)
                     $argidx = scalar(@{$bigh->{args}}) - 1;
-                    
+
                     # convert the entry to the array ref
                     $entry = 'args[' . $argidx . ']';
-                    
+
                     # append final bit if exists
                     $entry .= "." . $zzz[0] if (scalar(@zzz));
-                    
+
                 }
             }
             $kkey = $entry;
@@ -1866,16 +1860,16 @@ sub cmdline_defs_extension2
 
             return $cdxh;
 
-        } # end if key =~ adef            
+        } # end if key =~ adef
     } # end if defined argdef
 
     # do nothing
     return undef;
 } # end cmdline_defs_extension
- 
+
 # do_cmdline_defs(breezly optdef hash,
 #                 argdef name [if defined], breezly version,
-#                 file name, breezly defs, cmdline defs, 
+#                 file name, breezly defs, cmdline defs,
 #                 bool longdef, enum delete/append,
 #                 cmdline defs extension function))
 #
@@ -1889,7 +1883,7 @@ sub cmdline_defs_extension2
 sub do_cmdline_defs2
 {
     my ($bop,
-        $argdef, $brzvz, $filnam, $bigh, $defh, $blong, $delapp, 
+        $argdef, $brzvz, $filnam, $bigh, $defh, $blong, $delapp,
         $cdxfunc) = @_;
 
     my $bdel = (defined($delapp) && ($delapp == 1));
@@ -1901,7 +1895,7 @@ sub do_cmdline_defs2
         # input is "percent-encoded" JSON string
         if ($blong)
         {
-            # convert json to perl 
+            # convert json to perl
             $vv = breezly_from_encoded_json($bop, $vv);
 
             die "Cannot append NULL value to entry \"$kk\""
@@ -1926,7 +1920,7 @@ sub do_cmdline_defs2
                 $bdel, $bapp, $binc, $kk, $vv, $do_def, $defstr,
                 $cdxfunc);
         }
-                
+
         if (defined($cdxh))
         {
             $kk = $cdxh->{key}
@@ -1949,17 +1943,17 @@ sub do_cmdline_defs2
         for my $pp (@foo)
         {
             # allow negative offsets
-            if ($pp !~ m/(\[(\-)?\d+\])+$/) 
+            if ($pp !~ m/(\[(\-)?\d+\])+$/)
             {
                 # "normal" case -- no array offset
-                
+
                 push @xdef, { def => $pp, typ => "HASH", val => $vv};
                 next;
             }
 
             # [nn] suffix -- array notation
             my @p2 = split(/\[/, $pp, 2);
-            
+
             # strip the array offset -- add it back later after
             # determining if this entry exists, and is an array
             $pp = shift @p2;
@@ -1980,12 +1974,12 @@ sub do_cmdline_defs2
                 push @zzz, $tail;
             }
             push @xdef, { def => $pp, typ => "HASH"};
-            
+
             for my $adef (@zzz)
             {
                 push @xdef, { def => $adef, typ => "ARRAY"};
             }
-            
+
             # save the value
             $xdef[-1]->{val} = $vv;
 
@@ -2009,15 +2003,15 @@ sub do_cmdline_defs2
         # example, if the prior def was a hash and it points to an
         # array, we may need to construct an empty array, eg:
         #  do_def->{prev} = [];
-        # 
+        #
         while (scalar(@xdef))
         {
             $cur = shift @xdef;
-            
+
             die "bad def $cur->{def}"
                 unless (exists($cur->{typ}) &&
                         ($cur->{typ} =~ m/^(HASH|ARRAY)$/));
-                            
+
             if ($prev->{typ} eq "HASH")
             {
                 if (length($defstr))
@@ -2028,7 +2022,7 @@ sub do_cmdline_defs2
                 {
                     $defstr = '{' . $prev->{def} . '}';
                 }
-                
+
                 unless (exists($do_def->{$prev->{def}}))
                 {
                     die "no such entry \"$defstr\""
@@ -2043,9 +2037,9 @@ sub do_cmdline_defs2
                         $do_def->{$prev->{def}} = [];
                     }
                 }
-                
+
                 $do_def = $do_def->{$prev->{def}};
-                
+
             }
             else # array
             {
@@ -2062,7 +2056,7 @@ sub do_cmdline_defs2
                 {
                     die "no such entry \"$defstr\""
                         if ($delapp);
-                    
+
                     if ($cur->{typ} eq "HASH")
                     {
                         $do_def->[$prev->{def}] = {};
@@ -2072,9 +2066,9 @@ sub do_cmdline_defs2
                         $do_def->[$prev->{def}] = [];
                     }
                 }
-                
+
                 $do_def = $do_def->[$prev->{def}];
-                
+
             }
 
             # check here: types must match
@@ -2103,7 +2097,7 @@ sub do_cmdline_defs2
                 die "no such entry \"$defstr\""
                     unless (exists($do_def->{$prev->{def}}));
             }
-            
+
             if ($bdel)
             {
                 delete $do_def->{$prev->{def}};
@@ -2120,9 +2114,9 @@ sub do_cmdline_defs2
                     else
                     {
                         my $idef = $do_def->{$prev->{def}};
-                        
+
                         # replace the incremented suffix
-                        $do_def->{$prev->{def}} = 
+                        $do_def->{$prev->{def}} =
                             inc_lastnum($defstr, $idef);
                     }
                 }
@@ -2130,8 +2124,8 @@ sub do_cmdline_defs2
                 {
                     my $ktyp = ref($do_def->{$prev->{def}});
                     my $vtyp = ref($cur->{val});
-                    
-                    if ($ktyp ne "ARRAY") 
+
+                    if ($ktyp ne "ARRAY")
                     {
                         my $diemsg = "Cannot append $vtyp value to " .
                             "entry \"$defstr\"";
@@ -2154,12 +2148,12 @@ sub do_cmdline_defs2
                     }
                 }
             }
-            
+
         }
         else # array
         {
             $defstr .= '->[' . $prev->{def} . ']';
-            
+
             if ($delapp)
             {
                 die "no such entry \"$defstr\""
@@ -2167,7 +2161,7 @@ sub do_cmdline_defs2
                         # negative subscript
                         ( 0 > ($prev->{def} + scalar(@{$do_def}))));
             }
-            
+
             if ($bdel)
             {
                 # for an array, remove the specified reference
@@ -2177,7 +2171,7 @@ sub do_cmdline_defs2
             {
                 if (!$bapp)
                 {
-                    
+
                     if (!$binc)
                     {
                         # normal assignment
@@ -2186,9 +2180,9 @@ sub do_cmdline_defs2
                     else
                     {
                         my $idef = $do_def->[$prev->{def}];
-                        
+
                         # replace the incremented suffix
-                        $do_def->[$prev->{def}] = 
+                        $do_def->[$prev->{def}] =
                             inc_lastnum($defstr, $idef);
                     }
                 }
@@ -2196,7 +2190,7 @@ sub do_cmdline_defs2
                 {
                     my $ktyp = ref($do_def->[$prev->{def}]);
                     my $vtyp = ref($cur->{val});
-                    
+
                     if ($ktyp ne "ARRAY")
                     {
                         my $diemsg = "Cannot append $vtyp value to " .
@@ -2238,17 +2232,17 @@ sub triple_quote_fixup
     return $defstr
         unless ($defstr =~ m/\"\"\"/);
 
-    # NOTE: unconverted breezly_defs may contain triple-quotes.  
- 
+    # NOTE: unconverted breezly_defs may contain triple-quotes.
+
     # triple quote fixup
     my @zzz = split(/(\"\"\")/, $defstr);
-    
+
     my $fixstr = "";
-    
+
     if (scalar(@zzz))
     {
         my $inquote = 0;
-        
+
         # for each triple quoted region, convert to a single line using quurl2
 
         for my $chunk (@zzz)
@@ -2264,7 +2258,7 @@ sub triple_quote_fixup
                     if (length($tqfprefix))
                     {
                         my @lin = split(/\n/, $fixstr);
-                        
+
                         if (scalar(@lin))
                         {
                             my $lastlin = $lin[-1];
@@ -2287,22 +2281,22 @@ sub triple_quote_fixup
                     $inquote = 1;
                 }
             }
-            
+
             $fixstr .= $chunk;
-            
+
         } # end for my $chunk
-        
+
         # should have terminated triple quote before end of loop
         die("unterminated triple quote in definitions")
             if ($inquote);
-        
+
         $defstr = $fixstr;
-    } 
+    }
 
     return $defstr;
 } # end triple_quote_fixup
 
-# # do_initdefs(breezly optdef hash, initdef filename, 
+# # do_initdefs(breezly optdef hash, initdef filename,
 #               argdef name [if defined], breezly version,
 #               file name, breezly defs)
 #
@@ -2315,8 +2309,8 @@ sub triple_quote_fixup
 # [delete|increment] <key>
 #
 # where a <key> uses the "dot" notation and
-# a <value> is 
-#   a simple scalar value like a number, 
+# a <value> is
+#   a simple scalar value like a number,
 #   a single-line, single-quoted string (eg president = "Abe Lincoln")
 #   or a multi-line, triple-quoted string.
 #
@@ -2378,7 +2372,7 @@ sub do_initdefs_string2
 
             die "$lin: unknown define option in file $initfilnam"
                 if ($kk !~ m/^((del|delete)|(inc|increment))\s+/i);
-            
+
             my @defopt = ($kk =~ m/^(\w+)\s+\w+/);
 
             die "$lin: bad define option in file $initfilnam"
@@ -2397,7 +2391,7 @@ sub do_initdefs_string2
             elsif ($dfo =~ m/^i/i)
             {
                 # increment
-                
+
                 $delapp = 3;
             }
             else
@@ -2408,11 +2402,11 @@ sub do_initdefs_string2
             my $defh = { $kk => 0 };
 
             do_cmdline_defs2($bop,
-                            $argdef, $brzvz, $filnam, $bigh, $defh, 
+                            $argdef, $brzvz, $filnam, $bigh, $defh,
                             $blong, $delapp, $cdxfunc);
 
-            push @{$ilist}, 
-            {line => $lin, 
+            push @{$ilist},
+            {line => $lin,
              blong => $blong, key => $kk, delapp => $delapp};
         }
         else
@@ -2462,7 +2456,7 @@ sub do_initdefs_string2
             {
                 die "$lin: unknown define option in file $initfilnam"
                     if ($kk !~ m/^((def|define)|(jsondefine|jsondef|jdef)|(append|app)|(jsonappend|jsonapp|japp))\s+/i);
-                
+
                 my @defopt = ($kk =~ m/^(\w+)\s+\w+/);
 
                 die "$lin: bad define option in file $initfilnam"
@@ -2481,7 +2475,7 @@ sub do_initdefs_string2
                 {
                     # jsondef
                     $blong = 1;
-                    
+
                     # requote the value (do_cmdline_defs() will unquote)
                     $vv = quurl($vv);
 
@@ -2507,15 +2501,15 @@ sub do_initdefs_string2
             my $defh = { $kk => $vv };
 
             do_cmdline_defs2($bop,
-                            $argdef, $brzvz, $filnam, $bigh, $defh, 
+                            $argdef, $brzvz, $filnam, $bigh, $defh,
                             $blong, $delapp, $cdxfunc);
 
-            push @{$ilist}, 
-            {line => $lin,  
+            push @{$ilist},
+            {line => $lin,
              blong => $blong, key => $kk, delapp => $delapp, value => $vv };
 
         } # end else $lin =~ m/=/
-        
+
 
 ##        print $lin, "\n";
 
@@ -2531,7 +2525,7 @@ sub do_initdefs2
 
     my $infil;
 
-    open ($infil, "< $initfilnam") 
+    open ($infil, "< $initfilnam")
         or die "Could not open $initfilnam for reading : $! \n";
 
     # $$$ $$$ undefine input record separator (\n")
@@ -2544,12 +2538,10 @@ sub do_initdefs2
     close $infil;
 
     return do_initdefs_string2($bop,
-                              $bigstr, 
+                              $bigstr,
                               $initfilnam, $argdef, $brzvz, $filnam, $bigh,
                               $cdxfunc);
-} 
-
-
+}
 
 # BREEZLY_UTILITYFUNCS_END
 
@@ -2573,8 +2565,8 @@ sub breezly_pod_warn
 {
     my $bigstr = << 'EOF_bigstr';
 
-# WARNING: DO NOT modify the pod directly!  
-# Generated from the breezly_defs by breezly.pl version {BRZ_VERSION} 
+# WARNING: DO NOT modify the pod directly!
+# Generated from the breezly_defs by breezly.pl version {BRZ_VERSION}
 # on {BRZ_DATE}.
 EOF_bigstr
 
@@ -2630,7 +2622,7 @@ sub breezly_validate_more_tmpl
 #
 # stub routine for user-supplied command-line validation
 #
-# 
+#
 sub validate_more
 {
     my $bigh = shift;
@@ -2661,18 +2653,18 @@ sub special_breezly_def_cmdline_triplequote_fixup_tmpl
 {
     my $bigstr = << 'EOF_bigstr';
 
-# NOTE: unconverted breezly_defs may contain triple-quotes.  
+# NOTE: unconverted breezly_defs may contain triple-quotes.
 if ($defstr =~ m/\"\"\"/)
 {
     # triple quote fixup
     my @zzz = split(/(\"\"\")/, $defstr);
-    
+
     my $fixstr = "";
-    
+
     if (scalar(@zzz))
     {
         my $inquote = 0;
-        
+
         # for each triple quoted region, convert to a single line using quurl2
         for my $chunk (@zzz)
         {
@@ -2688,7 +2680,7 @@ if ($defstr =~ m/\"\"\"/)
                     # quurl2 (inlined)
                     my $pat1 = '[^a-zA-Z0-9' .
                         quotemeta(' ~!@#$^&*()-_=+{}[]:;<>,.?/') . ']';
-                    
+
                     $chunk =~ s/($pat1)/uc(sprintf("%%%02lx",  ord $1))/eg;
                 }
             }
@@ -2708,9 +2700,9 @@ if ($defstr =~ m/\"\"\"/)
         # should have terminated triple quote before end of loop
         die("$glob_id: unterminated triple quote in breezly definitions")
             if ($inquote);
-        
+
         $defstr = $fixstr;
-    } 
+    }
 }
 
 EOF_bigstr
@@ -2722,8 +2714,8 @@ sub breezly_parse_cmdline_tmpl
 {
     my $bigstr = << 'EOF_bigstr';
 
-# WARNING: DO NOT modify parse_cmdline() directly!  
-# Generated from the breezly_defs by breezly.pl version {BRZ_VERSION} 
+# WARNING: DO NOT modify parse_cmdline() directly!
+# Generated from the breezly_defs by breezly.pl version {BRZ_VERSION}
 # on {BRZ_DATE}.
 
 our {OPTDEFH};
@@ -2768,8 +2760,8 @@ sub parse_cmdline
         );
 
     {NUDE_POS}
-    GetOptions(\%h, 
-               'help|?', 'man', 
+    GetOptions(\%h,
+               'help|?', 'man',
                {GETOPTIONS}
         ) or pod2usage(2);
 
@@ -2779,7 +2771,7 @@ sub parse_cmdline
     pod2usage(-msg => $glob_id, -exitstatus => 0, -verbose => 2) if $man;
 
     # validate some options
-    {CHECKOPTIONS}    
+    {CHECKOPTIONS}
 
     # copy to the global
     while (my ($kk, $vv) = each(%h))
@@ -2802,7 +2794,7 @@ sub parse_cmdline
 BEGIN {
     exit(0)
         unless (parse_cmdline());
-    
+
 }
 EOF_bigstr
 
@@ -2819,7 +2811,7 @@ sub breezly_args_tmpl
     return $bigstr
         unless (exists($bigh->{_defs}->{prog}) &&
                 exists($bigh->{_defs}->{prog}->{breezly}));
-    
+
     my $brprog = $bigh->{_defs}->{prog}->{breezly};
 
     return $bigstr
@@ -2827,7 +2819,7 @@ sub breezly_args_tmpl
                 exists($brprog->{cmdline_option_types}->{all_types}));
 
     my $coth = $brprog->{cmdline_option_types};
-    
+
     my @tdefa;
 
     for my $ii (0..(scalar(@{$coth->{all_types}})-1))
@@ -2862,7 +2854,7 @@ sub fixup_breezly_pod
     my $prefx = quotemeta("BREEZLY_POD_BEGIN");
     my $suffx = quotemeta("BREEZLY_POD_END");
 
-    my @ddd = 
+    my @ddd =
         ($bigstr =~ m/^\s*\#\s*$prefx\s*$(.*)^\s*\#\s*$suffx\s*$/ms);
 
     die ("$filnam: could not fixup breezly pod")
@@ -2898,7 +2890,7 @@ sub fixup_breezly_pod
                 if (exists($xtra->{hidden}) && $xtra->{hidden})
                 {
                     # don't output hidden option
-                    next; 
+                    next;
                 }
 
                 if (exists($xtra->{aheader}))
@@ -2925,11 +2917,11 @@ sub fixup_breezly_pod
             $short_options .= $shorthdr . "\n\n"
                 if (defined($shorthdr));
 
-            # short options cannot contain carriage returns 
+            # short options cannot contain carriage returns
             # (should have been caught in check_breezly_defs() )
             if ($shortop =~ m/\n/)
             {
-                # just fix it crappily in the pod with spaces 
+                # just fix it crappily in the pod with spaces
                 # (to avoid screwed up formatting)
                 warn "$filnam: arg $nam cannot have carriage return in short description";
                 $shortop =~ s/\n/ /gm;
@@ -2958,11 +2950,11 @@ sub fixup_breezly_pod
     {
         # NOTE: format the short options as a single block to get identical
         # alignment *before* applying headers/footers.
-        # 
+        #
         # so resplit the unformatted short descriptions, and separate
         # into the table of options and headers and footers.
         my @shortlines = split(/\n/, $short_options);
-        
+
         my $ii = 0;
 
         my (@stbl, @shorthdrs);
@@ -3011,13 +3003,13 @@ sub fixup_breezly_pod
                 # return vs two carriage returns as separators) but the
                 # POD formatting may mess up otherwise
 
-                $shortlines[$ii] = 
+                $shortlines[$ii] =
                     "\n" . $shorthdrs[$ii] .
                     "\n" . $shortlines[$ii];
 
             }
 
-            $fmt_short = join("\n", @shortlines);            
+            $fmt_short = join("\n", @shortlines);
         }
     } # end if length short_options and !markup_only
 
@@ -3040,13 +3032,13 @@ sub fixup_breezly_pod
     $longdesc = unquurl($bigh->{_defs}->{long})
         if (exists($bigh->{_defs}->{long}));
 
-    $authors = 
-        join(",\n", 
+    $authors =
+        join(",\n",
              @{$bigh->{_defs}->{creation}->{orig_authors}})
         if (exists($bigh->{_defs}->{creation}->{orig_authors}));
 
-    $contributors = 
-        join(",\n", 
+    $contributors =
+        join(",\n",
              @{$bigh->{_defs}->{copyright}->{contributors}})
         if (exists($bigh->{_defs}->{copyright}->{contributors}));
 
@@ -3060,20 +3052,20 @@ sub fixup_breezly_pod
         exists($bigh->{_defs}->{copyright}->{support}->{long}) &&
         length($bigh->{_defs}->{copyright}->{support}->{long}))
     {
-        $contributors = 
-            "\n\n= SUPPORT\n\n" . 
+        $contributors =
+            "\n\n= SUPPORT\n\n" .
             unquurl($bigh->{_defs}->{copyright}->{support}->{long}) .
             $contributors . "\n";
     }
 
-    $maintainers = 
-        join(",\n", 
+    $maintainers =
+        join(",\n",
              @{$bigh->{_defs}->{copyright}->{maintainers}})
         if (exists($bigh->{_defs}->{copyright}->{maintainers}));
 
     if (length($maintainers))
     {
-        $authors .= 
+        $authors .=
             "\n\n= MAINTAINERS\n\nThis software is maintained by:\n" .
             $maintainers . "\n";
     }
@@ -3089,12 +3081,12 @@ sub fixup_breezly_pod
                                  COWNER => $bigh->{_defs}->{copyright}->{owner}
                              });
     }
-    
+
     if (exists($bigh->{_defs}->{copyright}->{license}) &&
         exists($bigh->{_defs}->{copyright}->{license}->{long}))
     {
         $copynlic .= "\n" if (length($copynlic));
-        $copynlic .= 
+        $copynlic .=
             unquurl($bigh->{_defs}->{copyright}->{license}->{long}) .
             "\n";
     }
@@ -3163,13 +3155,13 @@ sub fixup_breezly_pod
                 eval { $tmplstr = (\&$vv)->($bigh) }; warn $@ if $@;
                 $docffh{$kk} = $tmplstr;
             }
-            
+
             # augment pod string with additional formatting functions
             $podstr = doformat($podstr, \%docffh)
                 if (scalar(keys(%docffh)));
         }
     }
-    
+
     # NOTE: just dump the podstr in wikicreole markup form -- don't
     # fixup the file
     return ($podstr)
@@ -3185,7 +3177,7 @@ sub fixup_breezly_pod
                               BRZ_VERSION       => $brzvz,
                               BRZ_DATE          => $dt,
                           }) . $podstr;
-                          
+
     $podstr .= "\n=cut\n";
 
     $bigstr =~ s/$orig_rex/$podstr/gm;
@@ -3193,7 +3185,7 @@ sub fixup_breezly_pod
     return $bigstr;
 } # end fixup_breezly_pod
 
-# get_primitive_option_type(hash of cmdline option types, 
+# get_primitive_option_type(hash of cmdline option types,
 #                           file name, argument name, typename)
 #
 # returns "primitive" type for GetOpt
@@ -3259,14 +3251,14 @@ sub make_getoptions_args
             $nam .= "|" . $arg1->{alias}
                 if (exists($arg1->{alias}));
 
-            my $typ = get_primitive_option_type($coth, 
+            my $typ = get_primitive_option_type($coth,
                                                 $filnam, $nam, $arg1->{type});
 
             if ($typ)
             {
                 $nam .= (($arg1->{required}) ? "=" : ":") . $typ;
             }
-            else 
+            else
             {
                 # NOTE: type "untyped" returns a zero-length string,
                 # versus an undef.
@@ -3331,7 +3323,7 @@ sub get_choices_typedef
         goto L_tpd
             unless (exists($argdef->{choices}->{match}));
 
-        # choices can have an option match modifier: 
+        # choices can have an option match modifier:
         # ignore and/or auto_abbrev
         $ignor = "i"
             if ($argdef->{choices}->{match} =~ m/ignore/);
@@ -3358,13 +3350,13 @@ sub get_choices_typedef
         my $vcom    = join(", ", @{$valuea});
         my $vbar    = join("|",  map(quotemeta, @{$valuea}));
 
-        my $tpdmsg = doformat($msgtmpl, 
-                              { 
+        my $tpdmsg = doformat($msgtmpl,
+                              {
                                   VALSETCOMMA => $vcom
                               });
-        
-        my $tpdtst = doformat($tsttmpl, 
-                              { 
+
+        my $tpdtst = doformat($tsttmpl,
+                              {
                                   VALSETBAR => $vbar,
                                   IGNORE    => $ignor
                               });
@@ -3381,8 +3373,8 @@ sub get_choices_typedef
         #   (0 != scalar(grep { $_ ~= m/quotemeta(VAL)/ } @CHOICES))
         #
         # example:
-        #   unless (0 != 
-        #           (scalar(grep { $_ =~ m/^\Q$h{ttt}\E/i } 
+        #   unless (0 !=
+        #           (scalar(grep { $_ =~ m/^\Q$h{ttt}\E/i }
         #                    ("cable", "cabal", "frog", "frugal", "regal", "regulate"))))
 
         my $msgtmpl1 = '{NAM}: " . {VAL} . " not in ({VALSETCOMMA})';
@@ -3393,13 +3385,13 @@ sub get_choices_typedef
         # comma separated, doubled quoted list of values (eg '"a", "b", "c"')
         my $varr1    = join(", ",  map { '"' . $_ . '"'} @{$valuea});
 
-        my $tpdmsg1 = doformat($msgtmpl1, 
-                              { 
+        my $tpdmsg1 = doformat($msgtmpl1,
+                              {
                                   VALSETCOMMA => $vcom1
                               });
-        
-        my $tpdtst1 = doformat($tsttmpl1, 
-                              { 
+
+        my $tpdtst1 = doformat($tsttmpl1,
+                              {
                                   VALSETARR => $varr1,
                                   IGNORE    => $ignor
                               });
@@ -3407,20 +3399,20 @@ sub get_choices_typedef
         my $tpd1 = { msg => $tpdmsg1, test => $tpdtst1 };
         push @checkset, $tpd1;
 
-        # unambiguity check: 
+        # unambiguity check:
         # grep for val over all choices, must match only once
         #   (1 == scalar(grep { $_ ~= m/VAL/ } @CHOICES))
 
         my $msgtmpl2 = '{NAM}: " . {VAL} . " ambiguous match for ({VALSETCOMMA})';
         my $tsttmpl2 = '1 == (scalar(grep { $_ =~ m/^\Q{VAL}\E/{IGNORE} } ({VALSETARR})))';
 
-        my $tpdmsg2 = doformat($msgtmpl2, 
-                              { 
+        my $tpdmsg2 = doformat($msgtmpl2,
+                              {
                                   VALSETCOMMA => $vcom1
                               });
-        
-        my $tpdtst2 = doformat($tsttmpl2, 
-                              { 
+
+        my $tpdtst2 = doformat($tsttmpl2,
+                              {
                                   VALSETARR => $varr1,
                                   IGNORE    => $ignor
                               });
@@ -3428,7 +3420,7 @@ sub get_choices_typedef
         my $tpd2 = { msg => $tpdmsg2, test => $tpdtst2 };
         push @checkset, $tpd2;
 
-    } 
+    }
 
     return \@checkset;
 
@@ -3447,7 +3439,7 @@ sub get_typecheck
 
     my $typnam = $tpnam . "";
 
-    # check for array/hash -- trim the suffix 
+    # check for array/hash -- trim the suffix
     $typnam =~ s/(\%|\@|\[\])$//;
 
     die "$filnam: no such type $typnam"
@@ -3459,7 +3451,7 @@ sub get_typecheck
     # eg:
 #        int => {
 #            test => '{VAL} =~ m/^\d+$/',
-#            msg => '{NAM}: \"{VAL}\" must be an integer' 
+#            msg => '{NAM}: \"{VAL}\" must be an integer'
 #        },
 #        file => {
 #            test => 'length({VAL}) && (-e {VAL})',
@@ -3472,7 +3464,7 @@ sub get_typecheck
         exists($argdef->{xtra}->{type}->{msg}) &&
         exists($argdef->{xtra}->{type}->{test}))
     {
-        # this is actually the *last* typecheck 
+        # this is actually the *last* typecheck
         push @{$checkset}, $argdef->{xtra}->{type};
     }
 
@@ -3542,7 +3534,7 @@ if (exists({VAL}))
     }
 }
 EOF_arr_exists
- 
+
     my $reqstr = << 'EOF_reqstr';
 {
     warn "Missing required option \"{NAM}\"";
@@ -3568,11 +3560,11 @@ EOF_reqstr
 
         # if the type has a check routine, use it
         my $typcheck = get_typecheck($coth, $filnam, $bigh, $typ, $arg1);
-            
+
         if (scalar(@{$typcheck}))
         {
             $str = $if_exists . "";
-            
+
             if ($typ =~ m/(\@|\[\])$/)
             {
                 $str = doformat($arr_exists,
@@ -3606,38 +3598,38 @@ EOF_reqstr
                 # no "if exists", so use "unless"
                 $str = "unless (exists({VAL}))\n";
             }
-            
+
             # add the "really required" check
             $str .= $reqstr;
         }
-        
+
         my $diemsg   = "";
         my $testbool = "";
-        
+
         if (scalar(@{$typcheck}))
         {
             my $valstr = '$h{' . $nam . '}';
-            
+
             $valstr = '$elt'
                 if ($bArrayType);
 
             # may have set of typchecks
             for my $tc (@{$typcheck})
             {
-                $diemsg = 
+                $diemsg =
                     doformat($tc->{msg},
                              {
                                  NAM => $nam,
                                  VAL => $valstr
                              });
-                
-                $testbool = 
+
+                $testbool =
                     doformat($tc->{test},
                              {
                                  NAM => $nam,
                                  VAL => $valstr
                              });
-                
+
                 push @biga, doformat($str,
                                      {
                                          NAM    => $nam,
@@ -3656,10 +3648,10 @@ EOF_reqstr
                                 DIEMSG => $diemsg,
                                 TEST   => $testbool
                             });
-            
+
             push @biga, $str;
         }
-        
+
     } # end for my ii
 
     # build text for combined checkoption statements
@@ -3681,14 +3673,14 @@ sub make_nudepos
 # convert "nude" (positional) arguments to named options
 # before GetOpt() processing
 EOF_hdr
-    
-    # 20210706: 
+
+    # 20210706:
     # allow positional arguments with embedded, non-leading dash "-"
     # Cannot have positional arguments with leading dash because then
     # they just look like normal arguments!
     my $nudetmpl = << 'EOF_tmpl';
 
-$ARGV[{VAL}] = '--{NAM}=' . $ARGV[{VAL}] 
+$ARGV[{VAL}] = '--{NAM}=' . $ARGV[{VAL}]
     if ((scalar(@ARGV) >= {VALPLUS}) && ($ARGV[{VAL}] !~ /^\s*\-/));
 EOF_tmpl
 
@@ -3735,7 +3727,7 @@ EOF_tmpl
 }
 
 # make_cmdline_option_types_hash(breezly.pl optdef hash (not target defs),
-#                                file name, file contents [as string], 
+#                                file name, file contents [as string],
 #                                breezly defs)
 #
 # take the breezly defs cmdline_option_types and add runtime
@@ -3750,7 +3742,7 @@ sub make_cmdline_option_types_hash
     my $breezly_prog_defs = $breezly_bop->{_defs}->{prog}->{breezly};
 
     # the cmdline option types hash
-    my $coth = 
+    my $coth =
         breezly_deep_copy(
             $breezly_bop,
             $breezly_prog_defs->{cmdline_option_types});
@@ -3779,7 +3771,7 @@ sub make_cmdline_option_types_hash
     {
         my $loc_prog_defs = $bigh->{_defs}->{prog}->{breezly};
 
-        my $loc_coth = 
+        my $loc_coth =
             breezly_deep_copy(
                 $breezly_bop,
                 $loc_prog_defs->{cmdline_option_types});
@@ -3796,7 +3788,7 @@ sub make_cmdline_option_types_hash
             unless (exists($typdef->{name}) &&
                     defined($typdef->{name}) &&
                     length($typdef->{name}));
-        
+
         my $typnam = $typdef->{name};
 
         die "$filnam: no parent for type \"$typnam\""
@@ -3840,7 +3832,7 @@ sub fixup_breezly_cmdline
     my $prefx = quotemeta("BREEZLY_CMDLINE_BEGIN");
     my $suffx = quotemeta("BREEZLY_CMDLINE_END");
 
-    my @ddd = 
+    my @ddd =
         ($bigstr =~ m/^\s*\#\s*$prefx\s*$(.*)^\s*\#\s*$suffx\s*$/ms);
 
     die ("$filnam: could not fixup breezly command line options")
@@ -3850,7 +3842,7 @@ sub fixup_breezly_cmdline
     my $orig_rex = quotemeta($ddd[0]);
 
     # build runtime typechecking structure for cmdline arguments
-    my $coth = 
+    my $coth =
         make_cmdline_option_types_hash(
             $breezly_bop,
             $filnam, $bigstr, $bigh);
@@ -3871,8 +3863,8 @@ sub fixup_breezly_cmdline
     # NOTE: a bit grotesque.  The issue is that if breezly.pl operates
     # on *itself*, then it may have a breezly_def() with triple quotes
     # that would break JSON::PP::decode_json() in parse_cmdline().  So
-    # splice in a special triple-quote fixup for that case.  
-    my $special = isBreezly($filnam) ? 
+    # splice in a special triple-quote fixup for that case.
+    my $special = isBreezly($filnam) ?
         special_breezly_def_cmdline_triplequote_fixup_tmpl() : "";
 
     my $clstr = doformat(breezly_parse_cmdline_tmpl(),
@@ -3893,10 +3885,10 @@ sub fixup_breezly_cmdline
 } # end fixup_breezly_cmdline
 
 # fixup_breezly_utility_functions(breezly.pl optdef hash (not target),
-#                                 this file, target file name, 
+#                                 this file, target file name,
 #                                 target file contents [as string])
 # returns modified file contents string [if the marked region exists]
-# 
+#
 # breezly.pl contains a useful set of utility functions.  If the
 # target file contains a BEGIN/END "marked region" for the utility
 # functions, breezly.pl will extract the functions from **itself** and
@@ -3913,7 +3905,7 @@ sub fixup_breezly_utility_functions
     my $prefx = quotemeta("BREEZLY_UTILITYFUNCS_BEGIN");
     my $suffx = quotemeta("BREEZLY_UTILITYFUNCS_END");
 
-    my @ddd = 
+    my @ddd =
         ($bigstr =~ m/^\s*\#\s*$prefx\s*$(.*)^\s*\#\s*$suffx\s*$/ms);
 
     # if file doesn't have a region for "utility functions", just end
@@ -3930,27 +3922,27 @@ sub fixup_breezly_utility_functions
     {
         my $infil;
 
-        open ($infil, "< $brzly_filename") or 
+        open ($infil, "< $brzly_filename") or
             die "Could not open $brzly_filename for reading : $! \n";
 
         # $$$ $$$ undefine input record separator (\n")
         # and slurp entire file into variable
         local $/;
         undef $/;
-        
+
         $brz_fil_str = <$infil>;
-    
+
         close $infil;
     }
 
     # find and extract the utility functions from breezly.pl
-    @ddd = 
+    @ddd =
         ($brz_fil_str =~ m/^\s*\#\s*$prefx\s*$(.*)^\s*\#\s*$suffx\s*$/ms);
 
     die ("$filnam: could not find breezly utility functions")
         unless (scalar(@ddd));
 
-    # version info 
+    # version info
     # NOTE: the $breezly_optdef_h here is the definitions for this
     # program (breezly.pl), not the generated output (which goes into
     # $bigh)
@@ -3973,10 +3965,13 @@ sub fixup_breezly_utility_functions
 
     # save the original region from breezly.pl so we can substitute it
     # into the target file
-    $brz_util_funcs .= $ddd[0];
+
+    my $dd_zero = $ddd[0] . "";
+
+    $brz_util_funcs .= $dd_zero;
 
     # update the target file
-    $bigstr =~ 
+    $bigstr =~
         s/(^\s*\#\s*$prefx\s*)$orig_rex(^\s*\#\s*$suffx\s*$)/$1\n$brz_util_funcs\n$2/gm;
 
     return $bigstr;
@@ -3992,7 +3987,7 @@ sub breezly_defs_tmpl
 # The json breezly_defs control command-line parsing and pod
 # documentation.  Update these definitions and run breezly.pl to
 # rebuild your program.
-# 
+#
 sub breezly_defs
 {
     my $bigstr = << 'EOF_bigstr';
@@ -4036,14 +4031,14 @@ sub build_breezly_metadata2
 
     # check if the home directory has a preferences file.  The
     # definitions here will override the defaults.
-    my $preffil = 
+    my $preffil =
         File::Spec->catfile($ENV{HOME}, "breezlyprefs.json");
 
     if (-e $preffil)
     {
         my $infil;
 
-        open ($infil, "< $preffil") or 
+        open ($infil, "< $preffil") or
             die "Could not open $preffil for reading : $! \n";
 
         # $$$ $$$ undefine input record separator (\n")
@@ -4061,7 +4056,7 @@ sub build_breezly_metadata2
             if (defined($defs) &&
                 exists($defs->{_defs}));
     }
-    
+
     # NOTE: the preferences file takes precedence over standard
     # defaults.  Merge the hash with the defaults.  The module
     # Hash::Merge does this better
@@ -4069,7 +4064,7 @@ sub build_breezly_metadata2
     $bzly->{creation}                 = {}
         unless (exists($bzly->{creation}) &&
                 defined($bzly->{creation}));
-    
+
     $bzly->{creation}->{creationdate} = $dt;
     $bzly->{creation}->{creationtime} = $tm;
 
@@ -4077,7 +4072,7 @@ sub build_breezly_metadata2
         unless (exists($bzly->{creation}->{orig_authors}) &&
                 scalar(@{$bzly->{creation}->{orig_authors}}));
 
-    $bzly->{copyright}                    = {}    
+    $bzly->{copyright}                    = {}
         unless (exists($bzly->{copyright}) &&
                 defined($bzly->{copyright}));
 
@@ -4109,15 +4104,15 @@ sub build_breezly_metadata2
 
     $bzly->{copyright}->{license}->{long} = ""
         unless (exists($bzly->{copyright}->{license}->{long}) &&
-                defined($bzly->{copyright}->{license}->{long}) && 
+                defined($bzly->{copyright}->{license}->{long}) &&
                 length($bzly->{copyright}->{license}->{long}));
 
     $bzly->{copyright}->{license}->{name} = ""
         unless (exists($bzly->{copyright}->{license}->{name}) &&
-                defined($bzly->{copyright}->{license}->{name}) && 
+                defined($bzly->{copyright}->{license}->{name}) &&
                 length($bzly->{copyright}->{license}->{name}));
 
-    $bzly->{version}                  = {};    
+    $bzly->{version}                  = {};
     $bzly->{version}->{number}        = 0;
     $bzly->{version}->{date}          = $dt;
     $bzly->{version}->{time}          = $tm;
@@ -4134,7 +4129,7 @@ sub check_breezly_defs2
 {
     my ($breezly_bop, $filnam, $bigh, $brzvz) = @_;
 
-    $bigh->{_defs} =  
+    $bigh->{_defs} =
         build_breezly_metadata2(
             $breezly_bop,
             $filnam, $bigh, $brzvz)
@@ -4159,9 +4154,9 @@ sub check_breezly_defs2
             if (exists($arg1->{long}) &&
                 !exists($arg1->{short}))
             {
-                # short option cannot contain carriage returns.  
-                # So if the short is *not* set, 
-                #   use the long if it does *not* have a carriage return, 
+                # short option cannot contain carriage returns.
+                # So if the short is *not* set,
+                #   use the long if it does *not* have a carriage return,
                 #   else use the name
                 if ($arg1->{long} !~ m/\n/)
                 {
@@ -4215,7 +4210,7 @@ sub fixup_breezly_defs2
     my $prefx = quotemeta("BREEZLY_BEGIN_DEFS");
     my $suffx = quotemeta("BREEZLY_END_DEFS");
 
-    my @ddd = 
+    my @ddd =
         ($bigstr =~ m/^\s*\#\s*$prefx\s*$(.*)^\s*\#\s*$suffx\s*$/ms);
 
     die ("$filnam: could not fixup breezly definitions")
@@ -4274,7 +4269,7 @@ sub fixup_breezly_defs2
     $prefx = quotemeta("EOF_bigstr");
     $suffx = quotemeta("EOF_bigstr");
 
-    @ddd = 
+    @ddd =
         ($fixstr =~ m/\<\<\s*\'$prefx\'\;\s*$(.*)^$suffx\s*$/ms);
 
     die ("$filnam: could not fixup breezly json definitions")
@@ -4325,45 +4320,45 @@ sub fixup_breezly_defs2
             defined($breezly_bop->{delete}))
         {
             my $delh = {};
-            
+
             for my $delk (@{$breezly_bop->{delete}})
             {
                 $delh->{$delk} = 0;
             }
 
             # delete
-            do_cmdline_defs2($breezly_bop, $argdef, $brzvz, $filnam, $bigh, $delh, 
+            do_cmdline_defs2($breezly_bop, $argdef, $brzvz, $filnam, $bigh, $delh,
                             0,  # !blong
                             1,  # delete=1
                             $cdxfunc);
         }
 
-        do_cmdline_defs2($breezly_bop, $argdef, $brzvz, 
-                        $filnam, $bigh, $breezly_bop->{define}, 
+        do_cmdline_defs2($breezly_bop, $argdef, $brzvz,
+                        $filnam, $bigh, $breezly_bop->{define},
                         0,  # !blong
                         0,  # not delete/append/inc
                         $cdxfunc)
             if (exists($breezly_bop->{define}) &&
                 defined($breezly_bop->{define}));
 
-        do_cmdline_defs2($breezly_bop, $argdef, $brzvz, 
-                        $filnam, $bigh, $breezly_bop->{jsondefine}, 
+        do_cmdline_defs2($breezly_bop, $argdef, $brzvz,
+                        $filnam, $bigh, $breezly_bop->{jsondefine},
                         1,  # blong
                         0,  # not delete/append/inc
                         $cdxfunc)
             if (exists($breezly_bop->{jsondefine}) &&
                 defined($breezly_bop->{jsondefine}));
 
-        do_cmdline_defs2($breezly_bop, $argdef, $brzvz, 
-                        $filnam, $bigh, $breezly_bop->{append}, 
+        do_cmdline_defs2($breezly_bop, $argdef, $brzvz,
+                        $filnam, $bigh, $breezly_bop->{append},
                         0,  # !blong
                         2,  # append=2
                         $cdxfunc)
             if (exists($breezly_bop->{append}) &&
                 defined($breezly_bop->{append}));
 
-        do_cmdline_defs2($breezly_bop, $argdef, $brzvz, 
-                        $filnam, $bigh, $breezly_bop->{jsonappend}, 
+        do_cmdline_defs2($breezly_bop, $argdef, $brzvz,
+                        $filnam, $bigh, $breezly_bop->{jsonappend},
                         1,  # blong
                         2,  # append=2
                         $cdxfunc)
@@ -4374,14 +4369,14 @@ sub fixup_breezly_defs2
             defined($breezly_bop->{increment}))
         {
             my $inc_h = {};
-            
+
             for my $inck (@{$breezly_bop->{increment}})
             {
                 $inc_h->{$inck} = 0;
             }
 
             # increment
-            do_cmdline_defs2($breezly_bop, $argdef, $brzvz, 
+            do_cmdline_defs2($breezly_bop, $argdef, $brzvz,
                             $filnam, $bigh, $inc_h,
                             0,  # !blong
                             3,  # increment=3
@@ -4392,7 +4387,7 @@ sub fixup_breezly_defs2
 
     $defp->{defh} = $bigh;
 
-    $fixstr = 
+    $fixstr =
         breezly_json_encode_pretty(
             $breezly_bop,
             check_breezly_defs2($breezly_bop, $filnam, $bigh, $brzvz));
@@ -4426,7 +4421,7 @@ sub unfix_breezly_defs
     my $prefx = quotemeta("BREEZLY_BEGIN_DEFS");
     my $suffx = quotemeta("BREEZLY_END_DEFS");
 
-    my @ddd = 
+    my @ddd =
         ($bigstr =~ m/^\s*\#\s*$prefx\s*$(.*)^\s*\#\s*$suffx\s*$/ms);
 
     die ("$filnam: could not unfix breezly definitions")
@@ -4475,20 +4470,20 @@ sub unfix_breezly_defs
                 {
                     # split into ("long" : "), (<definition>), ("[,])
                     #
-                    my @mmm = 
+                    my @mmm =
                         ($lin =~ m/(\s*\"long\"\s*\:\s*\")(.*)(\"(?:\,)?)$/);
-                    
+
                     die ("$filnam: could not unfix breezly definitions -\n$lin")
                         unless (3 == scalar(@mmm));
 
                     # rebuild the "long" with the unquoted string,
                     # surrounded by triple-quotes
-                    push @lin2, $mmm[0] . '""' . 
+                    push @lin2, $mmm[0] . '""' .
                         unquurl($mmm[1]) . '""' .
                         $mmm[2];
                     next;
                 }
-                
+
                 # normal case - no change
                 push @lin2, $lin;
             } # end else
@@ -4503,7 +4498,7 @@ sub unfix_breezly_defs
 
     } # end else
 
-    $bigstr =~ 
+    $bigstr =~
         s/(^\s*\#\s*$prefx\s*)$orig_rex(^\s*\#\s*$suffx\s*$)/$1\n$fixstr\n$2/gm;
 
     return ($bigstr);
@@ -4515,14 +4510,14 @@ sub unfix_breezly_defs
 #           getdef array, defh, bool longdump)
 #
 # return the json for each getdef entry.  Definitions are rooted under
-# the "_defs" hash in defh.  
+# the "_defs" hash in defh.
 # Convert "dot" notation, ie "a.b.c", to {_defs}->{a}->{b}->{c}.
 # In addition, convert array references like "a[5]" to {_defs}->{a}->[5]
 #
 # if check_existence_only = true, then return 1 if the provided defs are
 # valid, else return 0.
 #
-# 
+#
 sub do_getdef2
 {
     my ($breezly_bop, $argdef, $check_only, $getdefa, $defh, $blong) = @_;
@@ -4546,7 +4541,7 @@ sub do_getdef2
                 $defstr = '';
                 $entry =~ s/^$adef/args/;
 
-                # check if argdef "by name" reference, ie 
+                # check if argdef "by name" reference, ie
                 #   -getdef args.argname
                 # vs args[argnum]
                 if ($entry =~ m/^args\./)
@@ -4562,9 +4557,9 @@ sub do_getdef2
                     shift @zzz; # pop "args"
 
                     # if treat "args" as hash by name, get the name
-                    my $argname = shift @zzz; 
+                    my $argname = shift @zzz;
                     my $argidx;
-                    
+
                     for my $ii (0..(scalar(@{$defh->{args}})-1))
                     {
                         if (exists($defh->{args}->[$ii]->{name}) &&
@@ -4577,7 +4572,7 @@ sub do_getdef2
 
                     unless (defined($argidx))
                     {
-                        $diemsg = 
+                        $diemsg =
                             "no such named argument \"$argname\" for $entry";
                         goto L_baddef;
                     }
@@ -4652,7 +4647,7 @@ sub do_getdef2
                     unless (ref($dumpdef) =~ m/ARRAY/)
                     {
                         $diemsg =
-                            "entry \"$defstr\" is not an array -- " . 
+                            "entry \"$defstr\" is not an array -- " .
                             "illegal offset \"$aa\"";
                         goto L_baddef;
                     }
@@ -4660,7 +4655,7 @@ sub do_getdef2
                     # don't allow getdef of non-existent array entries
 
                     $defstr .= '->[' . $aa . ']';
-                    
+
                     if (($aa >= scalar(@{$dumpdef})) ||
                         # negative subscript
                         ( 0 > ($aa + scalar(@{$dumpdef}))))
@@ -4673,7 +4668,7 @@ sub do_getdef2
                     $dumpdef = $dumpdef->[$aa];
 
                 }
-                
+
             }
         } # end for my $pp
 
@@ -4703,7 +4698,7 @@ sub do_getdef2
                 $bigstr .=  $dumpdef . "\n"
                     if (defined($dumpdef));
 
-                # XXX XXX: maybe print "null" if $blong 
+                # XXX XXX: maybe print "null" if $blong
             }
             else
             {
@@ -4733,7 +4728,7 @@ sub do_getdef2
 # dump_preferences(breezly.pl opdtdef hash (not target bigh), defh)
 # prints to stdout
 #
-# NOTE: destructive!! 
+# NOTE: destructive!!
 sub dump_preferences
 {
     my ($breezly_bop, $defh) = @_;
@@ -4747,23 +4742,23 @@ sub dump_preferences
     $genr = $defh->{_defs}->{version}->{_generator}
         if (exists($defh->{_defs}->{version}) &&
             exists($defh->{_defs}->{version}->{_generator}));
-    
+
     delete $defh->{_defs}->{version};
 
     # store the generator to check pref file compatibility
     $defh->{_defs}->{version} = { _generator => $genr }
         if (defined($genr) && length($genr));
-    
+
     delete $defh->{_defs}->{copyright}->{year};
-    
+
     delete $defh->{_defs}->{creation}->{creationdate};
     delete $defh->{_defs}->{creation}->{creationtime};
-    
+
 #    delete $defh->{_defs}->{prog};
     $defh->{_defs}->{prog} = {};
 
     print breezly_json_encode_pretty($breezly_bop, $defh);
-    
+
 }
 
 # copy the original file to a new version, then replace with .brzly file
@@ -4772,52 +4767,52 @@ sub version_file
     my $filename = shift;
 
     my $vfile = $filename . '.*';
-	
+
     my $foo = `ls $vfile`;
-	
+
     my @file_list = split(/\n/, $foo);
-	
+
     my $last_num = 0;
-	
+
     for my $f2 (@file_list)
     {
         chomp $f2;
 #        print "# ", $f2, "\n";
         my @baz = split(/\./, $f2);
-        
+
         my $file_num = pop @baz;
-        
+
         next
             unless ($file_num =~ m/^\d*$/);
-        
+
         $last_num = $file_num
             if ($file_num > $last_num);
     }
-	
+
     $last_num++;
-	
+
     my $new_name = $filename . '.' . $last_num;
     my $brz_name = $filename . '.brzly';
-	
+
     my $cpstr = "cp $filename $new_name\n";
 
     `$cpstr`;
-    
+
     $cpstr = "cp $brz_name $filename\n";
 
     `$cpstr`;
-	
+
 } # end version_file
 
 # template for bash completion function
 sub compofunc_tmpl
 {
     my $bigstr = << 'EOF_bigstr';
-# Generated from the breezly_defs by breezly.pl version {BRZ_VERSION} 
+# Generated from the breezly_defs by breezly.pl version {BRZ_VERSION}
 # on {BRZ_DATE}.
-_{FUNCNAME}() 
+_{FUNCNAME}()
 {
-    local cur prev 
+    local cur prev
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
@@ -4880,30 +4875,30 @@ sub do_compofunc
 # helper for do_compgen_dispatch(), do_compgen()
 sub do_compgen_do_disp1
 {
-    my ($breezly_bop, $dbg, $tgt, 
+    my ($breezly_bop, $dbg, $tgt,
         $optworda,
         $optname, $optpos, $optval) = @_;
-    
+
     my $nam2 = "";
     my $val2 = "";
     my $wda3 = "";
-    
-    # reduce the current position by 1 
+
+    # reduce the current position by 1
     # (treat target script as if called directly)
-    my $pos2 = " --compoptionposition=" . 
+    my $pos2 = " --compoptionposition=" .
         ($optpos - 1) . " ";
-            
+
     if (1)
     {
-        $nam2 = " --compoptionname=$optname " 
+        $nam2 = " --compoptionname=$optname "
             if (defined($optname) &&
                 length($optname) &&
                 ($optname =~ m/^\-/));
     }
-            
-    $val2 = " --compoptionvalue=$optval " 
+
+    $val2 = " --compoptionvalue=$optval "
         if (defined($optval));
-        
+
     if (0)
     {
         unless (length($val2))
@@ -4916,7 +4911,7 @@ sub do_compgen_do_disp1
     if (scalar(@{$optworda}) > 2)
     {
         my @tgtcworda; # target script cword array
-        
+
         # rebuild the word array stripping the original script
         # name and first argument
         for my $ii (2..(scalar(@{$optworda}) - 1))
@@ -4927,14 +4922,14 @@ sub do_compgen_do_disp1
         {
             # prepend the word list with the new target script name
             unshift @tgtcworda, quotemeta($tgt);
-            
+
             $wda3 = " --compoptionwords=" . quurl(join(" ", @tgtcworda))
         }
-        
+
     }
-    
+
     # use current path of breezly
-    my $sysstr = 
+    my $sysstr =
         "$0 --compgen $nam2 $val2 $pos2 $wda3 $tgt";
 
     warn("\nWarn! " . $sysstr . "\n")
@@ -4958,21 +4953,21 @@ sub do_compgen_dispatch
 
     my $bstat = 0;
 
-    # check for the case of a leading positional arguments 
+    # check for the case of a leading positional arguments
     # (check the COMP_WORDS array for a "-" for option 1)
 
     return $bstat
-        unless (defined($optworda) && 
+        unless (defined($optworda) &&
                 (scalar(@{$optworda}) > 1) &&
                 ($optworda->[1] !~ m/^\-/));
 
     # XXX XXX: strictly speaking, we want a "choices" attribute with a
     # dispatch, not a nude_pos option.
     # XXX XXX:
-    
+
     for my $arg (@{$allargs})
     {
-        next 
+        next
             unless (exists($arg->{xtra}) &&
                     exists($arg->{xtra}->{nude_pos}));
 
@@ -4980,7 +4975,7 @@ sub do_compgen_dispatch
         # definition has a "choices" attribute with
         # "compoption" completion that redirects to subsidiary
         # perl scripts, then start invoking breezly --compgen
-        # against those scripts.  
+        # against those scripts.
         # For example, the parent script supports commands
         # "fly" and "dance", but those invoke scripts
         # "foofly.pl" and "foodance.pl".  The "command" entry
@@ -4991,7 +4986,7 @@ sub do_compgen_dispatch
         #        "values" : {
         #           "dance" : "foodance.pl",
         #           "fly" : "foofly.pl"
-        #        },        
+        #        },
         #
 
         next
@@ -5003,19 +4998,19 @@ sub do_compgen_dispatch
                     exists($arg->{choices}->{dispatch}) &&
                     ($arg->{choices}->{dispatch} eq "script") &&
                     exists($arg->{choices}->{values}->{$optworda->[1]}));
-                    
+
 
 
         # IF have nude_pos option with dispatch THEN --
 
         # find the target script for the current choice
-        my $tgt_raw  = 
+        my $tgt_raw  =
             $arg->{choices}->{values}->{$optworda->[1]} . "";
-        
+
         # try to resolve full path if name does not have "/"
         my $tgt = $tgt_raw . "";
         $tgt = `which $tgt_raw` unless ($tgt_raw =~ m/\//);
-            
+
         unless (length($tgt))
         {
             # complain about invalid target but just skip
@@ -5024,13 +5019,13 @@ sub do_compgen_dispatch
         }
 
         ## do the actual dispatch
-        do_compgen_do_disp1($breezly_bop, $dbg, $tgt, 
+        do_compgen_do_disp1($breezly_bop, $dbg, $tgt,
                             $optworda,
-                            $optname, $optpos, $optval);        
+                            $optname, $optpos, $optval);
         return 1; # NOTE: only "success" case
 
     } # end for all args
-    
+
     return $bstat;
 } # end do_compgen_dispatch
 
@@ -5056,7 +5051,7 @@ sub do_compgen_arg_choices
     {
         # choices is an array of values: only support exact,
         # case-sensitive matching.
-        
+
         $valuea = $arg1->{choices};
     }
     elsif ((ref($arg1->{choices}) eq 'HASH') &&
@@ -5078,11 +5073,11 @@ sub do_compgen_arg_choices
         # check for match modifiers in choices hash
         if (exists($arg1->{choices}->{match}))
         {
-            # choices can have an option match modifier: 
+            # choices can have an option match modifier:
             # ignore and/or auto_abbrev
             $ignor = "(?i)"
                 if ($arg1->{choices}->{match} =~ m/ignore/);
-                        
+
             # NOTE: no special processing for "abbrev"
             # match -- compgen is expanding abbreviations
         }
@@ -5096,7 +5091,7 @@ sub do_compgen_arg_choices
     {
         # no option specified (yet) so print all possible
         # values
-        
+
         print join("\n", @{$valuea}) . "\n";
     }
     else
@@ -5105,11 +5100,11 @@ sub do_compgen_arg_choices
         # possible choice, so the match the full choice
         # value against this prefix
         my $rex = quotemeta($optval);
-        
+
         # use "(?i)" ignore case prefix if defined
-        $rex = $ignor . $rex 
+        $rex = $ignor . $rex
             if (defined($ignor));
-        
+
         for my $choice (@{$valuea})
         {
             print $choice . "\n"
@@ -5161,7 +5156,7 @@ sub do_compgen
     }
 
     # special case: check if need to dispatch to another script
-    if (defined($optpos) && 
+    if (defined($optpos) &&
         ($optpos > 1) &&
         defined($optworda) &&
         (scalar(@{$optworda}) > 2) &&
@@ -5174,7 +5169,7 @@ sub do_compgen
         # sigh: need to find the "nude" argument again in the arg list...
         for my $arg (@{$allargs})
         {
-            next 
+            next
                 unless (exists($arg->{xtra}) &&
                         exists($arg->{xtra}->{nude_pos}));
 
@@ -5187,20 +5182,20 @@ sub do_compgen
                         exists($arg->{choices}->{dispatch}) &&
                         ($arg->{choices}->{dispatch} eq "script") &&
                         exists($arg->{choices}->{values}->{$optworda->[1]}));
-            
+
             # so now have found the argument with the choice value
             # that identifies the target script
 
 
             # find the target script for the current choice
-            my $tgt_raw  = 
+            my $tgt_raw  =
                 $arg->{choices}->{values}->{$optworda->[1]} . "";
 
-            
+
             # try to resolve full path if name does not have "/"
             my $tgt = $tgt_raw . "";
             $tgt = `which $tgt_raw` unless ($tgt_raw =~ m/\//);
-            
+
             unless (length($tgt))
             {
                 # complain about invalid target but just skip
@@ -5209,10 +5204,10 @@ sub do_compgen
             }
 
             ## do the actual dispatch
-            do_compgen_do_disp1($breezly_bop, $dbg, $tgt, 
+            do_compgen_do_disp1($breezly_bop, $dbg, $tgt,
                                 $optworda,
-                                $optname, $optpos, $optval);        
-            return; 
+                                $optname, $optpos, $optval);
+            return;
 
         } # end for
 
@@ -5223,12 +5218,12 @@ sub do_compgen
     $optname =~ s/^(\-)((\-)?)//;
 
     # check for positional arguments
-    if (defined($optpos) && 
+    if (defined($optpos) &&
         (0 == length($optname)) && defined($optval))
     {
         for my $arg (@{$allargs})
         {
-            next 
+            next
                 unless (exists($arg->{xtra}) &&
                         exists($arg->{xtra}->{nude_pos}));
 
@@ -5242,7 +5237,7 @@ sub do_compgen
             }
         }
     }
-        
+
     if (defined($optval))
     {
         unless ($bdash &&
@@ -5272,10 +5267,10 @@ sub do_compgen
                 if (exists($arg->{alias}))
                 {
                     my @allalias = split(/\|/, $arg->{alias});
-                    
+
                     push @allalias, $arg->{alias}
                         unless (scalar(@allalias));
-                    
+
                     for my $ali (@allalias)
                     {
                         if ($ali =~ m/^$optname$/)
@@ -5301,7 +5296,7 @@ sub do_compgen
             }
 
             # see if this arg supports a list of choices
-            return 
+            return
                 if do_compgen_arg_choices($breezly_bop, $arg1, $optval);
 
             if ($arg1->{type} =~ m/file/)
@@ -5320,11 +5315,11 @@ sub do_compgen
     {
         if (0) # XXX XXX: fix ?
 {
-        return 
+        return
             if (do_compgen_dispatch($breezly_bop, $dbg,
                                     $allargs, $optworda,
                                     # NOTE: replace missing dashes
-                                    "--" . $optname, 
+                                    "--" . $optname,
                                     $optpos, $optval));
 }
     }
@@ -5332,12 +5327,12 @@ sub do_compgen
     unless ($bdash) # no leading dash for option ?
     {
         # check if dispatching compgen to subsidiary script
-        return 
+        return
             if (do_compgen_dispatch($breezly_bop, $dbg,
                                     $allargs, $optworda,
-                                    $optname, 
+                                    $optname,
                                     $optpos, $optval));
-        # 
+        #
         system('bash -c "compgen -A file ' . "$optname\"");
         return;
     } # end unless bdash
@@ -5363,10 +5358,10 @@ sub do_compgen
                 if (exists($arg->{alias}))
                 {
                     my @allalias = split(/\|/, $arg->{alias});
-                    
+
                     push @allalias, $arg->{alias}
                     unless (scalar(@allalias));
-                    
+
                     for my $ali (@allalias)
                     {
                         print "--" . $ali . "\n"
@@ -5376,8 +5371,8 @@ sub do_compgen
             }
         }
     } # end for my arg
-    
-    
+
+
     return;
 
 } # end do_compgen
@@ -5405,8 +5400,8 @@ sub do_breezly
 
     my $breezly_defp = {};
 
-    $bigstr = fixup_breezly_defs2($breezly_bop, 
-                                  $filnam, $bigstr, $breezly_defp); 
+    $bigstr = fixup_breezly_defs2($breezly_bop,
+                                  $filnam, $bigstr, $breezly_defp);
 
     # reset back to triple-quoted form if specified
     if (exists($breezly_bop->{triplequote}) &&
@@ -5432,11 +5427,11 @@ sub do_breezly
     my $markup_only = (exists($breezly_bop->{wikimarkup}) &&
                        defined($breezly_bop->{wikimarkup}));
 
-    $bigstr = 
+    $bigstr =
         fixup_breezly_pod(
             $breezly_bop,
-            $filnam, $bigstr, $breezly_defp->{defh}, 
-            $markup_only); 
+            $filnam, $bigstr, $breezly_defp->{defh},
+            $markup_only);
 
     if ($markup_only)
     {
@@ -5486,7 +5481,7 @@ sub do_breezly
 
         print do_getdef2($breezly_bop,
                          $argdef, 0,
-                        $breezly_bop->{getjsondef}, 
+                        $breezly_bop->{getjsondef},
                         $breezly_defp->{defh}, 1)
             if (exists($breezly_bop->{getjsondef}) &&
                 defined($breezly_bop->{getjsondef}));
@@ -5494,13 +5489,13 @@ sub do_breezly
         return;
     }
 
-    $bigstr = 
+    $bigstr =
         fixup_breezly_cmdline(
             $breezly_bop,
-            $filnam, $bigstr, $breezly_defp->{defh}); 
+            $filnam, $bigstr, $breezly_defp->{defh});
 
     # fixup utility functions for all files except breezly.pl
-    $bigstr = 
+    $bigstr =
         fixup_breezly_utility_functions(
             $breezly_bop,
             $0, $filnam, $bigstr)
@@ -5561,7 +5556,7 @@ EOF_bigstr
     };
 
     # fill out internal breezly defs
-    my $opth = 
+    my $opth =
         check_breezly_defs2(
             $bop,
             "template", $basic_opth, $brzvz);
@@ -5581,12 +5576,12 @@ EOF_bigstr
     $bigstr .=
         fixup_breezly_pod(
             $bop,
-            "template", 
+            "template",
             "# BREEZLY_POD_BEGIN\nXXXXXX\n# BREEZLY_POD_END\n",
             $opth);
 
     # build the breezly_defs() function
-    my $fixstr = 
+    my $fixstr =
         breezly_json_encode_pretty(
             $bop, $opth);
 
@@ -5638,11 +5633,11 @@ if (1)
         exit(0);
     }
 
-    # build a template 
+    # build a template
     if (exists($bop->{maketemplate}) &&
         defined($bop->{maketemplate}))
     {
-        my $brzvz = $bop->{_defs}->{version}->{number};        
+        my $brzvz = $bop->{_defs}->{version}->{number};
         exit(make_breezly_template($bop, $brzvz));
     }
 
@@ -5670,13 +5665,13 @@ if (0)
 
     my $rowb = breezly_tbl_pad($rowa);
 
-    print Data::Dumper->Dump($rowb);    
+    print Data::Dumper->Dump($rowb);
 
     print breezly_tbl_join($rowb,4);
 }
 
 ##
-## TODO: 
+## TODO:
 ## improve long description
 ## m/^(a|b|c)$/i, m/[0..9]/
 ## extensible types
@@ -5689,7 +5684,7 @@ if (0)
 ##
 ## line2tq - take an encoded line and revert to triple quoted form
 ## file2long - convert file to single quurl encoded line
-## 
+##
 ## help for types
 ##
 ## do_cmdline_defs - fix array of array assignment (ie a[2][3][4])
@@ -5712,7 +5707,7 @@ if (0)
 ##
 ## check file[], file% type inheritance...
 ##
-## move utility functions to Breezly.pm: 
+## move utility functions to Breezly.pm:
 ## format_with_lead_spaces, doformat, quurl, quurl2, unquurl
 ## breezly_tbl_split, breezly_tbl_pad, breezly_tbl_join, breezly_fmt_tbl
 ## basic_wikicreole2pod
@@ -5726,15 +5721,15 @@ if (0)
 ## execute them)
 ##
 ## array of named hashes def - aonh ? named hash array? for initdef
-## 
+##
 ## python style argparse "choices"
 ##   choices = [1,2,3]           # actual array
 ##   choices = "m/^(a|b|c)$/i"   # match string
 ##   choices = "[1..10]"         # range spec
-## 
+##
 ##   choices = { match = "abbrev, ignorecase", values = [a,b,c] }
 ##
 ## xtra: nude_pos - similar to python argparse positional arguments
 ##   just convert to named options prior to GetOptions() call
 ##   and fix compgen to return position
-##  (argparse replaces optparse) 
+##  (argparse replaces optparse)

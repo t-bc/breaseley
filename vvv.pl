@@ -11,15 +11,15 @@ use POSIX qw(tmpnam);
 
 # BREEZLY_POD_BEGIN
 # WARNING: DO NOT modify the pod directly!
-# Generated from the breezly_defs by breezly.pl version 2.8
-# on Sun Feb 19 23:22:29 2017.
+# Generated from the breezly_defs by breezly.pl version 3.2
+# on Wed Oct  6 18:08:32 2021.
 =head1 NAME
 
 B<vvv.pl> - veni, vidi, vici: clean up extra version files
 
 =head1 VERSION
 
-version 12.3 of vvv.pl released on Sun Feb 19 23:19:48 2017
+version 12.4 of vvv.pl released on Wed Oct  6 18:08:32 2021
 
 =head1 SYNOPSIS
 
@@ -58,13 +58,19 @@ Options:
 vvv is a command-line tool to generate scripts to remove extraneous
 versioned files.
 
+
+
+=head1 SUPPORT
+
+Address bug reports and comments at https://github.com/t-bc/genezzo/issues
+
 =head1 AUTHORS
 
 Jeff Cohen
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2014-2017 by Jeff Cohen.
+Copyright (c) 2014-2021 by Jeff Cohen.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
@@ -91,9 +97,9 @@ sub breezly_defs
          "maintainers" : [],
          "owner" : "Jeff Cohen",
          "support" : {
-            "long" : "Address bug reports and comments to: jcohen@genezzo.com"
+            "long" : "Address bug reports and comments at https://github.com/t-bc/genezzo/issues"
          },
-         "year" : "2014-2017"
+         "year" : "2014-2021"
       },
       "creation" : {
          "creationdate" : "Sat Jan 18 01:11:38 2014",
@@ -106,10 +112,10 @@ sub breezly_defs
       "short" : "veni, vidi, vici: clean up extra version files",
       "synopsis" : "[options]",
       "version" : {
-         "_generator" : "breezly.pl version 2.8",
-         "date" : "Sun Feb 19 23:19:48 2017",
-         "number" : "12.3",
-         "time" : 1487575188
+         "_generator" : "breezly.pl version 3.2",
+         "date" : "Wed Oct  6 18:08:32 2021",
+         "number" : "12.4",
+         "time" : 1633568912
       }
    },
    "args" : [
@@ -174,8 +180,8 @@ sub defstr_decode_more
 # BREEZLY_CMDLINE_BEGIN
 
 # WARNING: DO NOT modify parse_cmdline() directly!
-# Generated from the breezly_defs by breezly.pl version 2.8
-# on Sun Feb 19 23:22:29 2017.
+# Generated from the breezly_defs by breezly.pl version 3.2
+# on Wed Oct  6 18:08:32 2021.
 
 our $breezly_optdef_h;
 
@@ -217,6 +223,7 @@ sub parse_cmdline
     my %h = (
         'help' => \$help, 'man' => \$man
         );
+
 
     GetOptions(\%h,
                'help|?', 'man',
