@@ -256,25 +256,25 @@ if (1)
 {
     for my $filename (@ARGV)
     {
-	unless (-e $filename)
-	{
+        unless (-e $filename)
+        {
             print "# no such file: $filename";
             next;
-	}
+        }
 
-	next if ($filename =~ m/\~$/); # ignore emacs twiddle files
-	next if ($filename =~ m/\.\d+$/); # ignore version files
+        next if ($filename =~ m/\~$/); # ignore emacs twiddle files
+        next if ($filename =~ m/\.\d+$/); # ignore version files
 
-	my $vfile = $filename . '.*';
+        my $vfile = $filename . '.*';
 
-	my $foo = `ls $vfile`;
+        my $foo = `ls $vfile`;
 
-	my @file_list = split(/\n/, $foo);
+        my @file_list = split(/\n/, $foo);
 
-	my $last_num = 0;
+        my $last_num = 0;
 
-	for my $f2 (@file_list)
-	{
+        for my $f2 (@file_list)
+        {
             chomp $f2;
             print "# ", $f2, "\n";
             my @baz = split(/\./, $f2);
@@ -286,24 +286,24 @@ if (1)
 
             $last_num = $file_num
                 if ($file_num > $last_num);
-	}
+        }
 
-	$last_num++;
+        $last_num++;
 
-	my $new_name = $filename . '.' . $last_num;
+        my $new_name = $filename . '.' . $last_num;
 
-	my $cpstr = "cp -p $filename $new_name\n";
+        my $cpstr = "cp -p $filename $new_name\n";
 
-	if (exists($breezly_optdef_h->{copy}) &&
+        if (exists($breezly_optdef_h->{copy}) &&
             defined($breezly_optdef_h->{copy}))
-	{
+        {
             print "do: $cpstr";
             `$cpstr`;
-	}
-	else
-	{
+        }
+        else
+        {
             print $cpstr;
-	}
+        }
 
     }
     exit(0);

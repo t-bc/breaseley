@@ -11,15 +11,15 @@ use POSIX;
 # BREEZLY_POD_BEGIN
 
 # WARNING: DO NOT modify the pod directly!
-# Generated from the breezly_defs by breezly.pl version 3.2
-# on Wed Oct  6 19:44:55 2021.
+# Generated from the breezly_defs by breezly.pl version 3.4
+# on Thu Jul 28 20:00:22 2022.
 =head1 NAME
 
 B<breezly.pl> - making things a breeze
 
 =head1 VERSION
 
-version 3.3 of breezly.pl released on Wed Oct  6 19:44:55 2021
+version 3.4 of breezly.pl released on Thu Jul 28 19:56:01 2022
 
 =head1 SYNOPSIS
 
@@ -484,7 +484,7 @@ Jeff Cohen
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2014-2021 by Jeff Cohen.
+Copyright (c) 2014-2022 by Jeff Cohen.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
@@ -513,7 +513,7 @@ sub breezly_defs
          "support" : {
             "long" : "Address bug reports and comments at https://github.com/t-bc/genezzo/issues"
          },
-         "year" : "2014-2021"
+         "year" : "2014-2022"
       },
       "creation" : {
          "creationdate" : "Sat Jan 18 00:25:02 2014",
@@ -562,10 +562,10 @@ sub breezly_defs
       "short" : "making things a breeze",
       "synopsis" : "[options] filename...",
       "version" : {
-         "_generator" : "breezly.pl version 3.2",
-         "date" : "Wed Oct  6 19:44:55 2021",
-         "number" : "3.3",
-         "time" : 1633574695
+         "_generator" : "breezly.pl version 3.3",
+         "date" : "Thu Jul 28 19:56:01 2022",
+         "number" : "3.4",
+         "time" : 1659063361
       }
    },
    "args" : [
@@ -573,14 +573,14 @@ sub breezly_defs
          "alias" : "?",
          "long" : "Print a brief help message and exits.",
          "name" : "help",
-         "required" : "0",
+         "required" : 0,
          "short" : "brief help message",
          "type" : "untyped"
       },
       {
          "long" : "Prints the manual page and exits.",
          "name" : "man",
-         "required" : "0",
+         "required" : 0,
          "short" : "full documentation",
          "type" : "untyped"
       },
@@ -671,14 +671,14 @@ sub breezly_defs
       {
          "long" : "Parse the command line, and dump the hash of the parsed %5C%5Coptions (the optdef hash) to stdout.  %22-dump%22 shows %5C%5Cthe breezly.pl commandline, while %22-show%22 dumps the %5C%5Cbreezly_defs of the input file.",
          "name" : "dump",
-         "required" : "0",
+         "required" : 0,
          "short" : "dump the command line optdef hash",
          "type" : "untyped"
       },
       {
          "long" : "Extract the %22breezly_defs%22 definitions from the input file, %5C%5Cand apply basic fixup, preferences, and command line %5C%5Coptions, then dump the result to stdout.  %22-dump%22 shows the %5C%5Cbreezly.pl commandline, while %22-show%22 dumps the %5C%5Cbreezly_defs of the input file.",
          "name" : "show",
-         "required" : "0",
+         "required" : 0,
          "short" : "show the breezly defs",
          "type" : "untyped"
       },
@@ -686,14 +686,14 @@ sub breezly_defs
          "alias" : "template",
          "long" : "make a generic template for a breezly script",
          "name" : "maketemplate",
-         "required" : "0",
+         "required" : 0,
          "short" : "make a generic template for a breezly script",
          "type" : "untyped"
       },
       {
          "long" : "Extracts the %22breezly_defs%22 from the input file, and %5C%5Crewrites the output so each %22long%22 definition is in %5C%5C%22triple-quoted%22 form.  Note that while breezly can read these definitions, %5C%5Cthe resulting JSON object is **not** in a valid format.  Processing the %5C%5Cfile **without** the %22triplequote%22 option will reverse the process.",
          "name" : "triplequote",
-         "required" : "0",
+         "required" : 0,
          "short" : "unconvert breezly def to triple-quoted long strings",
          "type" : "untyped"
       },
@@ -701,35 +701,35 @@ sub breezly_defs
          "alias" : "prefs",
          "long" : "Extracts the %22breezly_defs%22 from the input file, filters %5C%5Cout dynamic information (like %22creationdate%22), and writes %5C%5Ca json def to stdout, suitable for the breezlyprefs.json %5C%5Cfile.  If this file exists (in your home directory), it will %5C%5Cmodify the default definitions (for owner, author, %5C%5Clicense, etc) when a new template is generated.",
          "name" : "preferences",
-         "required" : "0",
+         "required" : 0,
          "short" : "dump the breezly defs for a preference files",
          "type" : "untyped"
       },
       {
          "long" : "print the version and copyright information",
          "name" : "version",
-         "required" : "0",
+         "required" : 0,
          "short" : "print the version and copyright information",
          "type" : "untyped"
       },
       {
          "long" : "Extracts %22breezly_defs%22 definitions from the %5C%5Cinput file, and print the documentation in wikicreole %5C%5Cmarkup form.  This markup output may be converted to html.",
          "name" : "wikimarkup",
-         "required" : "0",
+         "required" : 0,
          "short" : "print the documentation in wikicreole markup form",
          "type" : "untyped"
       },
       {
          "long" : "Normally, the target file is not modified, and %0Athe results are written to a separate %22.brzly%22 file. %0AIf %22-replace%22 is specified, a numbered backup copy%0Aof the target is made, and the original target file%0Ais replaced.%0A",
          "name" : "replace",
-         "required" : "0",
+         "required" : 0,
          "short" : "replace the target file",
          "type" : "untyped"
       },
       {
          "long" : "Extract the breezly options from the target file%0Aand generate bash compgen-style completion, based upon%0A%22--compoptionname%22 and %22--compoptionvalue%22 options.%0ANormally, this option is invoked in the bash completion%0Afunction generated by %22--compoptionfunction%22.%0A",
          "name" : "compgen",
-         "required" : "0",
+         "required" : 0,
          "short" : "generate compgen-style completion",
          "type" : "untyped"
       },
@@ -764,7 +764,7 @@ sub breezly_defs
       {
          "long" : "Build a bash completion function which%0Auses the breezly %22compgen%22 options for interactive command%0Acompletion.  This completion command may be stored in a file%0Aand %22sourced%22, or installed in /etc/bash_completion.d%0A",
          "name" : "compoptionfunction",
-         "required" : "0",
+         "required" : 0,
          "short" : "generate a bash completion function",
          "type" : "untyped"
       }
@@ -808,8 +808,8 @@ sub defstr_decode_more
 # BREEZLY_CMDLINE_BEGIN
 
 # WARNING: DO NOT modify parse_cmdline() directly!
-# Generated from the breezly_defs by breezly.pl version 3.2
-# on Wed Oct  6 19:44:55 2021.
+# Generated from the breezly_defs by breezly.pl version 3.4
+# on Thu Jul 28 20:00:22 2022.
 
 our $breezly_optdef_h;
 
@@ -988,18 +988,19 @@ sub breezly_json_setup
     return
         if (exists($bop->{_defs}->{_JSON}->{json}));
 
-    if (eval "require JSON")
-    {
-        $bop->{_defs}->{_JSON}->{module} = "JSON";
-        $bop->{_defs}->{_JSON}->{json}   =
-           JSON->new->pretty(1)->indent(1)->canonical(1);
-    }
-    elsif (eval "require JSON::PP")
+    if (eval "require JSON::PP")
     {
         $bop->{_defs}->{_JSON}->{module} = "JSON::PP";
         $bop->{_defs}->{_JSON}->{json}   =
           JSON::PP->new->pretty(1)->indent(1)->canonical(1);
     }
+    elsif (eval "require JSON")
+    {
+        $bop->{_defs}->{_JSON}->{module} = "JSON";
+        $bop->{_defs}->{_JSON}->{json}   =
+           JSON->new->pretty(1)->indent(1)->canonical(1);
+    }
+
     else
     {
         die "Cannot find JSON or JSON::PP modules!\nPlease download and install from cpan.org";
@@ -1140,7 +1141,8 @@ sub doformat
             $vv = "";
         }
 
-        my $sub1 = '{' . quotemeta($kk) . '}';
+        #        my $sub1 = '{' . quotemeta($kk) . '}';
+        my $sub1 = quotemeta('{' . $kk . '}'); # 20220728: must quote braces now
 
         for my $ii (0..(scalar(@lin)-1))
         {

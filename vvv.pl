@@ -7,19 +7,19 @@ use Getopt::Long;
 use Pod::Usage;
 use Data::Dumper;
 use IO::File;
-use POSIX qw(tmpnam);
+#use POSIX qw(tmpnam);
 
 # BREEZLY_POD_BEGIN
 # WARNING: DO NOT modify the pod directly!
-# Generated from the breezly_defs by breezly.pl version 3.2
-# on Wed Oct  6 18:08:32 2021.
+# Generated from the breezly_defs by breezly.pl version 3.4
+# on Sun Mar  5 00:08:05 2023.
 =head1 NAME
 
 B<vvv.pl> - veni, vidi, vici: clean up extra version files
 
 =head1 VERSION
 
-version 12.4 of vvv.pl released on Wed Oct  6 18:08:32 2021
+version 13.1 of vvv.pl released on Sun Mar  5 00:08:05 2023
 
 =head1 SYNOPSIS
 
@@ -30,6 +30,8 @@ Options:
     -help               brief help message
     -man                full documentation
     -maxversion         highest version number to retain
+    -maxdepth           deepest subdirectory depth to search
+    -coalesce           coalesce by day
 
 
 =head1 OPTIONS
@@ -48,6 +50,23 @@ Options:
 =item B<maxversion>
 
     Restricts the number of versions to retain (normally 10)
+
+=item B<maxdepth>
+
+    Restricts the "find" subdirectory search maximum depth.
+    Useful for very large directory trees.
+
+
+=item B<coalesce>
+
+
+    if coalesce is specified, vvv.pl will retain up
+    to two versions of a file for each day, versus
+    deleting the oldest versions first.  The
+    maxversion is a guideline to activate the
+    coalesce, but the number of retained versions
+    may exceed maxversion with this technique.
+
 
 =back
 
@@ -70,7 +89,7 @@ Jeff Cohen
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2014-2021 by Jeff Cohen.
+Copyright (c) 2014-2023 by Jeff Cohen.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
@@ -99,7 +118,7 @@ sub breezly_defs
          "support" : {
             "long" : "Address bug reports and comments at https://github.com/t-bc/genezzo/issues"
          },
-         "year" : "2014-2021"
+         "year" : "2014-2023"
       },
       "creation" : {
          "creationdate" : "Sat Jan 18 01:11:38 2014",
@@ -112,10 +131,10 @@ sub breezly_defs
       "short" : "veni, vidi, vici: clean up extra version files",
       "synopsis" : "[options]",
       "version" : {
-         "_generator" : "breezly.pl version 3.2",
-         "date" : "Wed Oct  6 18:08:32 2021",
-         "number" : "12.4",
-         "time" : 1633568912
+         "_generator" : "breezly.pl version 3.4",
+         "date" : "Sun Mar  5 00:08:05 2023",
+         "number" : "13.1",
+         "time" : 1678003685
       }
    },
    "args" : [
@@ -123,14 +142,14 @@ sub breezly_defs
          "alias" : "?",
          "long" : "Print a brief help message and exits.",
          "name" : "help",
-         "required" : "0",
+         "required" : 0,
          "short" : "brief help message",
          "type" : "untyped"
       },
       {
          "long" : "Prints the manual page and exits.",
          "name" : "man",
-         "required" : "0",
+         "required" : 0,
          "short" : "full documentation",
          "type" : "untyped"
       },
@@ -141,6 +160,21 @@ sub breezly_defs
          "required" : "0",
          "short" : "highest version number to retain",
          "type" : "int"
+      },
+      {
+         "alias" : "md",
+         "long" : "Restricts the %22find%22 subdirectory search maximum depth.%0AUseful for very large directory trees.%0A",
+         "name" : "maxdepth",
+         "required" : "0",
+         "short" : "deepest subdirectory depth to search",
+         "type" : "int"
+      },
+      {
+         "long" : "%0Aif coalesce is specified, vvv.pl will retain up%0Ato two versions of a file for each day, versus%0Adeleting the oldest versions first.  The%0Amaxversion is a guideline to activate the%0Acoalesce, but the number of retained versions%0Amay exceed maxversion with this technique.%0A",
+         "name" : "coalesce",
+         "required" : 0,
+         "short" : "coalesce by day",
+         "type" : "untyped"
       }
    ]
 }
@@ -180,8 +214,8 @@ sub defstr_decode_more
 # BREEZLY_CMDLINE_BEGIN
 
 # WARNING: DO NOT modify parse_cmdline() directly!
-# Generated from the breezly_defs by breezly.pl version 3.2
-# on Wed Oct  6 18:08:32 2021.
+# Generated from the breezly_defs by breezly.pl version 3.4
+# on Sun Mar  5 00:08:05 2023.
 
 our $breezly_optdef_h;
 
@@ -227,7 +261,9 @@ sub parse_cmdline
 
     GetOptions(\%h,
                'help|?', 'man',
-               'maxversion|mv:i'
+               'maxversion|mv:i',
+               'maxdepth|md:i',
+               'coalesce'
 
         ) or pod2usage(2);
 
@@ -269,7 +305,15 @@ if (1)
 {
     use POSIX qw(strftime);
 
-    my $allfils = `find . | grep '\.[1023456789]'`;
+    my $bop = $breezly_optdef_h;
+
+    my $maxdepth = "";
+
+    $maxdepth = " -maxdepth " . $bop->{maxdepth}
+        if (exists($bop->{maxdepth}) &&
+            defined($bop->{maxdepth}));
+
+    my $allfils = `find . $maxdepth | grep '\.[1023456789]'`;
 
     my @biga = split(/\n/, $allfils);
 
@@ -317,19 +361,81 @@ if (1)
         unless (exists($nameh{$f2}))
         {
             $nameh{$f2} = {};
+            $nameh{$f2}->{daycount} = {};
+            $nameh{$f2}->{numbers}  = {};
         }
-        $nameh{$f2}->{$fnum} = $fil;
+        $nameh{$f2}->{numbers}->{$fnum}->{nam} = $fil;
+
+        if (-e $fil)
+        {
+            # get date information on file
+            # (among many other things)
+            my ($dev,$ino,$mode,
+                $nlink,$uid,$gid,
+                $rdev,$size,
+                $atime,$mtime,$ctime,
+                $blksize,$blocks)
+                = stat($fil);
+
+            # date time in ISO 8601
+            # format (YYYY-MM-DD hh:mm:ss)
+            $nameh{$f2}->{numbers}->{$fnum}->{dat} =
+                strftime("%Y-%m-%d %H:%M:%S",
+                         localtime($mtime));
+
+            my $fday =
+                strftime("%Y%m%d",
+                         localtime($mtime));
+            my $fmon =
+                strftime("%Y%m",
+                         localtime($mtime));
+            my $fyar =
+                strftime("%Y",
+                         localtime($mtime));
+
+            $nameh{$f2}->{numbers}->{$fnum}->{day} = $fday;
+
+            if (exists($nameh{$f2}->{daycount}->{$fday}))
+            {
+                $nameh{$f2}->{daycount}->{$fday} += 1;
+            }
+            else
+            {
+                $nameh{$f2}->{daycount}->{$fday} = 1;
+            }
+
+            if (exists($nameh{$f2}->{moncount}->{$fmon}))
+            {
+                $nameh{$f2}->{moncount}->{$fmon} += 1;
+            }
+            else
+            {
+                $nameh{$f2}->{moncount}->{$fmon} = 1;
+            }
+            if (exists($nameh{$f2}->{yearcount}->{$fyar}))
+            {
+                $nameh{$f2}->{yearcount}->{$fyar} += 1;
+            }
+            else
+            {
+                $nameh{$f2}->{yearcount}->{$fyar} = 1;
+            }
+        }
+
+
 
     }
 
     print join("\n", @matcha), "\n\n";
+
+#    print Data::Dumper->Dump([%nameh]);
 
     while ( my ($kk, $vv) = each(%nameh))
     {
         next
             unless (-e $kk);
 
-        my $nvals = scalar(keys(%{$vv}));
+        my $nvals = scalar(keys(%{$vv->{numbers}}));
 
         if ($nvals > $breezly_optdef_h->{maxversion})
         {
@@ -339,57 +445,108 @@ if (1)
             print "# ", $tot, "\n";
 
             # sort the file numbers numerically
-            my @fnum = sort {$a <=> $b} (keys(%{$vv}));
+            my @fnum = sort {$a <=> $b} (keys(%{$vv->{numbers}}));
 
 #            print Data::Dumper->Dump([$vv]);
 #            print Data::Dumper->Dump(\@fnum);
 
+            my $prevDay;
+            my $numPDay = 0;
+
             for my $fnn (@fnum)
             {
-                my $f3 = $vv->{$fnn};
+                my $fnam = $vv->{numbers}->{$fnn}->{nam};
+
+                next
+                    unless ($fnam && length($fnam));
+
+                my $fday = $vv->{numbers}->{$fnn}->{day};
 
                 $tot--;
-                next
-                    unless ($f3 && length($f3));
 
-                if ($tot < $breezly_optdef_h->{maxversion})
+                if (!(exists($bop->{coalesce}) &&
+                      defined($bop->{coalesce})))
                 {
-                    print "mv $f3 $kk" . "." . $cnt . "\n";
-                    # remove font lock files too
-                    print "rm $f3" . ".flc\n"
-                        if (-e $f3 . ".flc");
-                    $cnt++;
+                    if ($tot < $breezly_optdef_h->{maxversion})
+                    {
+                        print "mv $fnam $kk" . "." . $cnt . "\n";
+                        # remove font lock files too
+                        print "rm $fnam" . ".flc\n"
+                            if (-e $fnam . ".flc");
+                        $cnt++;
+                    }
+                    else
+                    {
+                        my $datcmt = "";
+
+                        if (exists($vv->{numbers}->{$fnn}->{dat}))
+                        {
+                            # add a "date comment" with time in ISO 8601
+                            # format (YYYY-MM-DD hh:mm:ss)
+                            $datcmt = "\t# " .
+                                $vv->{numbers}->{$fnn}->{dat};
+
+                        }
+
+                        print "rm $fnam $datcmt\n";
+                        # remove font lock files too
+                        print "rm $fnam" . ".flc\n"
+                            if (-e $fnam . ".flc");
+                    }
                 }
-                else
+                else # coalesce by day
                 {
                     my $datcmt = "";
+                    my $fday   = $vv->{numbers}->{$fnn}->{day};
 
-                    if (-e $f3)
+                    if (exists($vv->{numbers}->{$fnn}->{dat}))
                     {
-                        # get date information on file
-                        # (among many other things)
-                        my ($dev,$ino,$mode,
-                            $nlink,$uid,$gid,
-                            $rdev,$size,
-                            $atime,$mtime,$ctime,
-                            $blksize,$blocks)
-                            = stat($f3);
-
                         # add a "date comment" with time in ISO 8601
                         # format (YYYY-MM-DD hh:mm:ss)
                         $datcmt = "\t# " .
-                            strftime("%Y-%m-%d %H:%M:%S",
-                                     localtime($mtime));
+                            $vv->{numbers}->{$fnn}->{dat};
 
                     }
 
-                    print "rm $f3 $datcmt\n";
-                    # remove font lock files too
-                    print "rm $f3" . ".flc\n"
-                        if (-e $f3 . ".flc");
+#                    print "# $numPDay\n"
+#                        if (defined($prevDay));
+
+                    # coalesce duplicates by day, preserving the first
+                    # and last entries for a day. The "doRM" boolean
+                    # skips the last entry for that day by doing a
+                    # countdown on the number of daily entries.  Could
+                    # be extended to retain multiple daily entries
+                    my $doRM = ($numPDay > 1);
+
+                    if (defined($prevDay) &&
+                        ($prevDay eq $fday) &&
+                        $doRM)
+                    {
+                        print "rm $fnam $datcmt\n";
+                        # remove font lock files too
+                        print "rm $fnam" . ".flc\n"
+                            if (-e $fnam . ".flc");
+                    }
+                    else
+                    {
+                        print "mv $fnam $kk" . "." . $cnt
+                            . $datcmt . "\n";
+                        # remove font lock files too
+                        print "rm $fnam" . ".flc\n"
+                            if (-e $fnam . ".flc");
+                        $cnt++;
+                    }
+                    if (!defined($prevDay) ||
+                        ($prevDay ne $fday))
+                    {
+                        $prevDay = $fday . "";
+                        $numPDay = $vv->{daycount}->{$fday} + 0;
+                    }
+                    $numPDay--;
                 }
 
-            }
+            } # end for my nnn
+
             print "\n\n";
 
         }
